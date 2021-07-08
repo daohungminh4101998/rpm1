@@ -263,38 +263,61 @@ function ProductDetails(props) {
                     // console.log(itemOrder)
                     return (
                         <div className="wrap-product-details">
-                            <div className="img-product">
-                                <img src={fakeimg} />
-                            </div>
-                            <div className="img-product">
-                            </div>
-                            <h2 className="title-beer">
-                                Bia {itemOrder.category}
-                            </h2>
-                            <div className="sell-outr">
-                                <span className="border-right mr-1">50 + đã bán</span>
-                                <span>4 thích</span>
-                            </div>
-                            <div className="price d-flex justify-content-between">
-                                <span className="price"> {priceTamp * countBeer}d <br />
-                                    SIZE M
-                                </span>
+                            <div className= "main_product">
+                                <div className="img-product">
+                                    <img src={fakeimg} />
+                                </div>
+                                {/* <div className="img-product">
+                                </div> */}
+                                <h2 className="title-beer">
+                                    {itemOrder.category}
+                                </h2>
+                                <div className="sell-out">
+                                    <div className="sell-out-left">50+ đã bán</div>
+                                    <span className="line"></span>
+                                    <div className="sell-out-left">4 thích</div>
+                                </div>
+                                <div className="price_quantity">
+                                    <div className="price_quantity-left"> 
+                                        {priceTamp * countBeer}
+                                
+                                    </div>
 
-                                <div className="count-product d-flex">
-                                    <button onClick={() => { handleCount('-') }} className="decrement-count">-</button>
-                                    <h3 className="number-count pr-2 pl-2">{countBeer}</h3>
-                                    <button onClick={() => { handleCount('+') }} className="increment-count" >+</button>
+                                    <div className="price_quantity-right">
+                                        <button onClick={() => { handleCount('-') }} className="decrement-count">-</button>
+                                        <h3 className="number-count">{countBeer}</h3>
+                                        <button onClick={() => { handleCount('+') }} className="increment-count" >+</button>
+
+                                    </div>
 
                                 </div>
 
-                            </div>
-                            <div className="payment border-top d-flex justify-content-between">
-                                <div className="payment-left">
-                                    {priceTamp * countBeer}d <br />
-                                    SIZE M
+                                <div className="text_infor">
+                                    <div className="name_number">Mark Han - 0123456789</div>
+                                    <div className="address">Tân Mỹ, Mỹ Đình, Nam Từ Niêm, Hà Nội</div>
                                 </div>
-                                <div onClick={() => { orderBeer(itemOrder.id, quantity) }} className="payment-left">
-                                    Đặt hàng
+                                <div className="quantity">
+                                    <div>Tổng (1 phần)</div>
+                                    <div className="tong">25000</div>
+                                </div>
+                                <div className="fee_ship">
+                                    <div>Phí giao hàng</div>
+                                    <div>15000</div>
+                                </div>
+                                <div className="voucher">
+                                    <div>Icon here</div>
+                                    <div>Khuyến mại</div>
+                                    {/* <input>Nhập mã</input> */}
+                                </div>
+                                <div className="total">
+                                    <div>Tổng cộng</div>
+                                    <div>31000</div>
+                                </div>
+                                <div className="payment">
+                                    <button onClick={() => { orderBeer(itemOrder.id, quantity) }} 
+                                        className="payment-button">
+                                        Đặt hàng
+                                    </button>
                                 </div>
                             </div>
                         </div>

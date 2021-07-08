@@ -132,35 +132,143 @@ h2{
   transition: 0.5s;
 }
 
-
+.footer_btn:hover{
+  transform: scale(0.9);
+}
 
 /* end Login form */
+
+/* Product details */
 .card {
   width: 25%;
 }
-.wrap-product-details-app {
+.infor_order{
+  text-align: center;
+  font-size:1.5rem;
+}
+ .wrap-product-details-app {
   width: 100%;
-  display: flex;
+  height: 100%;
 }
 
 .wrap-product-details {
-  margin: auto;
+    height: 100%;
 }
-.border-right {
-  border-right: 1px solid;
-  padding: 0px 4px;
+.main_product{
+  position: relative;
+  margin:auto;
+  width: 50%;
+  height:100%;
 }
 
-.border-top {
-  border-top: 1px solid;
-  padding-top: 10px;
+.img-product{
+  display:flex;
+  align-items: center;
+  justify-content:center;
 }
-.count-product.d-flex button {
+.sell-out {
+  display: flex;
+  margin-left: 155px;
+  color: grey;
+}
+.line{
+    width: 2px;
+    height: 20px;
+    background-color: grey;
+    margin: 2px 5px 2px 5px;
+    display: block;
+}
+.sell-out-left{
+  font-weight: 500;
+}
+.price_quantity{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.price_quantity-left{
+  display: flex;
+  align-items: center;
+}
+.price_quantity-right{
+  display: flex;
+  align-items: center;
+}
+.decrement-count{
+  margin-right: 15px;
   width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  border-radius:50% 50% 50% 50% ;
+  color: grey;
+}
+.number-count{
+  margin-right: 15px;
+  padding-top: 4px;
+}
+.increment-count{
+  border-radius: 50% 50% 50% 50% ;
+  width: 30px;
+  background-color: red;
+  color: #fff;
+}
+.text_infor{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: flex-end;
+  margin-right: 30px;
+}
+.name_number{
+  margin-right: 196px;
+  text-align: left;
+}
+.address{
+  margin-left: 250px;
+    font-size: 25px;
+    flex-wrap: wrap;
+    margin-right: 100px;
+}
+.quantity{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+/* .tong{
+  margin-right: 20px;
+} */
+
+.fee_ship{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.voucher{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.total{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.payment{
+  margin-top: 20px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+}
+.payment-button{
+  width: 60%;
+  height: 50px;
+  background-color: red;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.payment button:hover{
+  transform: scale(0.9);
 }
 
-.price.d-flex.justify-content-between {
-  height: 250px;
-}
+/* end product detail */
