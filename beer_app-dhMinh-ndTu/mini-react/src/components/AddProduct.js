@@ -21,8 +21,6 @@ function ProductDetails(props) {
     const sendData = {
         "id": null,
         "href": null,
-        "nameProduct": "Bia Hà Nội tu client",
-        "price": 100000000000,
         "cancellationDate": null,
         "cancellationReason": null,
         "category": infoProduct.nameProduct,
@@ -50,44 +48,6 @@ function ProductDetails(props) {
             }
         ],
         "orderTotalPrice": null,
-
-        "productOrderItem": [
-
-            {
-                "id": infoProduct.nameProduct,
-                "description": infoProduct.desProduct,
-                "quantity": infoProduct.priceProduct,
-                "action": "noChange",
-                "payment": null,
-                "productOffering": null,
-                "product": {
-                    "id": "Tiger-123",
-                    "name": "vvv 214",
-                    "place": null,
-                    "relatedParty": null
-                },
-                "itemPrice": [
-                    {
-                        "name": null,
-                        "priceType": "one time",
-                        "description": "beer",
-                        "priceAlteration": [],
-                        "price": {
-                            "taxRate": 19,
-                            "percentage": 0,
-                            "dutyFreeAmount": {
-                                "value": 2500000,
-                                "unit": "VND"
-                            },
-                            "taxIncludedAmount": {
-                                "value": 25000,
-                                "unit": "VBD"
-                            }
-                        }
-                    }
-                ]
-            }
-        ],
         "payment": null,
         "productOfferingQualification": null,
         "quote": [
