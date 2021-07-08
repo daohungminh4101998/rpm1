@@ -8,6 +8,8 @@ import { useHistory } from 'react-router-dom';
 function ProcessProduct(props) {
 
     const [fakeApi, setFakeApi] = useState([])
+    const [show, setShow] = useState(false);
+    const [idShow, setIdShow] = useState(null)
     async function getBeerById() {
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}`, {
@@ -33,7 +35,8 @@ function ProcessProduct(props) {
     }
     let history = useHistory();
 
-    const handleComPlete = (idOrder) => {
+    const handleComPlete = (idOrder, itemArr) => {
+        console.log()
         const sendData = {
             "id": idOrder,
             "href": null,
@@ -66,53 +69,7 @@ function ProcessProduct(props) {
                 }
             ],
             // "orderTotalPrice": null,
-            "orderTotalPrice": [
-
-                {
-                    "@baseType": "string",
-                    "@schemaLocation": null,
-                    "@type": "string",
-                    "billingAccount": {
-                        "@baseType": "string",
-                        "@referredType": "string",
-                        "@schemaLocation": null,
-                        "@type": "string",
-                        "href": "string",
-                        "id": "string",
-                        "name": "string"
-                    },
-                    "description": "string",
-                    "name": "string",
-                    "price": {
-                        "@baseType": "string",
-                        "@schemaLocation": null,
-                        "@type": "string",
-                        "dutyFreeAmount": {
-                            "unit": "string",
-                            "value": 0
-                        },
-                        "percentage": 0,
-                        "taxIncludedAmount": {
-                            "unit": "string",
-                            "value": 0
-                        },
-                        "taxRate": 0
-                    },
-                    "priceAlteration": null,
-                    "priceType": "string",
-                    "productOfferingPrice": {
-                        "@baseType": "string",
-                        "@referredType": "string",
-                        "@schemaLocation": null,
-                        "@type": "string",
-                        "href": "string",
-                        "id": "string",
-                        "name": "string"
-                    },
-                    "recurringChargePeriod": "string",
-                    "unitOfMeasure": "string"
-                }
-            ],
+            "orderTotalPrice": itemArr,
             "payment": null,
             "productOfferingQualification": null,
             "quote": [
@@ -150,29 +107,54 @@ function ProcessProduct(props) {
                 console.log(error);
             });
     }
+    const handleShowItem = (itemId) => {
+        setIdShow(itemId)
+        setShow(!show)
 
 
+    }
     const renderOrder = fakeApi.length > 0 ? fakeApi.map((item, index) => {
         if (item.state == 'inProgress') {
+            if (item.orderTotalPrice != null) {
+                return (
+                    <tbody>
+                        <tr>
+                            <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show == true && idShow == item.id ? 'hide' : 'show'}</th>
 
-            return (
-                <tbody>
-                    <tr>
-                        <th scope="row">{item.id}</th>
-                        <td>{item.category}</td>
-                        <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : ""}</td>
-                        <td></td>
+                            <th scope="row">{item.id}</th>
+                            <td>{item.category}</td>
+                            <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : 1}</td>
+                            <td></td>
 
-                        <td>{item.orderDate}</td>
+                            <td>{item.orderDate}</td>
 
-                        <td>{item.state}</td>
+                            <td>{item.state}</td>
 
-                        <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => handleComPlete(item.id)} color="success">Duyet</ButtonToggle>{' '}</td>
+                            <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => handleComPlete(item.id, item.orderTotalPrice)} color="success">Duyet</ButtonToggle>{' '}</td>
 
-                        <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => hendleReject(item.id)} color="danger">Tu choi</ButtonToggle>{' '}</td>
-                    </tr>
-                </tbody>
-            )
+                            <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => hendleReject(item.id)} color="danger">Tu choi</ButtonToggle>{' '}</td>
+                        </tr>
+                        {
+                            show == true && idShow == item.id && item.orderTotalPrice != null ? item.orderTotalPrice.map((itemSub, index) => {
+                                return (
+                                    <tr>
+                                        <th scope="row" onClick={handleShowItem}></th>
+                                        <td></td>
+                                        <td>{itemSub.description}</td>
+                                        <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : 1} </td>
+                                        <td>1</td>
+                                        <td>{item.orderDate}</td>
+                                        <td>{item.state}</td>
+                                    </tr>
+                                )
+                            })
+                                : null
+                        }
+
+                    </tbody>
+                )
+            }
+
         } else {
             return false
         }
@@ -180,7 +162,7 @@ function ProcessProduct(props) {
     }) : []
 
     return (
-        <Table>
+        <Table bordered>
             <thead>
                 <tr>
                     <th colSpan={3}>danh sach order</th>
@@ -189,6 +171,8 @@ function ProcessProduct(props) {
             </thead>
             <thead>
                 <tr>
+                    <th>show</th>
+
                     <th>ID ORDER</th>
                     <th>ten sp</th>
                     <th>so luong</th>

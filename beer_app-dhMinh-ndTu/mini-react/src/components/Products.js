@@ -110,25 +110,26 @@ function Products(props) {
     }
     //console.log(arrItemOrder)
     const renderData = fakeApi.map((itemBeer, index) => {
+        if (itemBeer.state == "acknowledged") {
+            return (
+                <Card key={index} >
+                    <CardImg top width="318px" height="180px" src={fakeimg} alt="Card image cap" />
+                    <CardBody>
+                        <NavLink arrItemOrder={arrItemOrder} to={{
+                            // `/products/${itemBeer.id}`
+                            pathname: `/products/${itemBeer.id}`,
+                            state: { dataOrder: arrItemOrder.length > 0 ? arrItemOrder : [itemBeer] }
+                        }} onClick={() => { handleNav(itemBeer.id) }}>
+                            <CardTitle tag="h5"> {itemBeer.category == null ? 'Bia demo' : itemBeer.category} </CardTitle>
+                            {/* <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle> */}
+                            <CardText>{truncate(itemBeer.description)}</CardText>
+                        </NavLink>
 
-        return (
-            <Card key={index} >
-                <CardImg top width="318px" height="180px" src={fakeimg} alt="Card image cap" />
-                <CardBody>
-                    <NavLink arrItemOrder={arrItemOrder} to={{
-                        // `/products/${itemBeer.id}`
-                        pathname: `/products/${itemBeer.id}`,
-                        state: { dataOrder: arrItemOrder }
-                    }} onClick={() => { handleNav(itemBeer.id) }}>
-                        <CardTitle tag="h5"> {itemBeer.category == null ? 'Bia demo' : itemBeer.category} </CardTitle>
-                        {/* <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle> */}
-                        <CardText>{truncate(itemBeer.description)}</CardText>
-                    </NavLink>
-
-                    <Button onClick={() => { handleOrderBeer(itemBeer.id, itemBeer) }}>Add to Cart</Button>
-                </CardBody>
-            </Card >
-        )
+                        <Button onClick={() => { handleOrderBeer(itemBeer.id, itemBeer) }}>Add to Cart</Button>
+                    </CardBody>
+                </Card >
+            )
+        }
     })
     return (
         <div>

@@ -21,6 +21,8 @@ function ProductDetails(props) {
     const sendData = {
         "id": null,
         "href": null,
+        "nameProduct": "Bia Hà Nội tu client",
+        "price": 100000000000,
         "cancellationDate": null,
         "cancellationReason": null,
         "category": infoProduct.nameProduct,

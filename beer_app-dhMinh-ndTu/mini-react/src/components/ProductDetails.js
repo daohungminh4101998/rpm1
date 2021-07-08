@@ -12,8 +12,31 @@ ProductDetails.propTypes = {
 
 function ProductDetails(props) {
     let location = useLocation();
-    console.log(location)
-
+    // console.log(location)
+    let listOrder = location.state.dataOrder;
+    let resultListOrder = listOrder.map((item, index) => {
+        return {
+            "description": item.category,
+            "name": item.category,
+            "priceType": "one time",
+            "state": "inProgress",//inProgress
+            "price": {
+                "taxRate": 16.0,
+                "dutyFreeAmount": {
+                    "unit": "VND",
+                    "state": "inProgress",//inProgress
+                    "value": 1213333
+                },
+                "taxIncludedAmount": {
+                    "unit": "VND",
+                    "state": "inProgress",//inProgress
+                    "value": 1410000
+                }
+            },
+            "state": "inProgress",//inProgress
+        }
+    })
+    ////console.log(resultListOrder)
     const [fakeApi, setFakeApi] = useState([])
     const [stateData, setStateData] = useState([])
     async function getBeerById() {
@@ -62,12 +85,10 @@ function ProductDetails(props) {
         const orderNow = Date.now();
         var dateobj = new Date(orderNow);
         var convertDateISO = dateobj.toISOString();
-
+        const fakeIDcustom = '99999999'
         const sendData = {
-            "id": indexOrderB,
+            "id": fakeIDcustom,
             "href": null,
-            "nameProduct": "Bia Hà Nội tu client",
-            "price": 100000000000,
             "cancellationDate": null,
             "cancellationReason": null,
             "category": null,
@@ -85,8 +106,8 @@ function ProductDetails(props) {
             "channel": null,
             "note": [
                 {
-                    "id": "333333333333333",
-                    "author": null,
+                    "id": fakeIDcustom,
+                    "author": "DAO HUNG MINH",
                     "date": null,
                     "text": "http://www.tesst.com",
                     "@baseType": null,
@@ -95,53 +116,56 @@ function ProductDetails(props) {
                 }
             ],
             // "orderTotalPrice": null,
-            "orderTotalPrice": [
+            // "orderTotalPrice": [
 
-                {
-                    "@baseType": "string",
-                    "@schemaLocation": null,
-                    "@type": "string",
-                    "billingAccount": {
-                        "@baseType": "string",
-                        "@referredType": "string",
-                        "@schemaLocation": null,
-                        "@type": "string",
-                        "href": "string",
-                        "id": "string",
-                        "name": "string"
-                    },
-                    "description": "string",
-                    "name": "string",
-                    "price": {
-                        "@baseType": "string",
-                        "@schemaLocation": null,
-                        "@type": "string",
-                        "dutyFreeAmount": {
-                            "unit": "string",
-                            "value": 0
-                        },
-                        "percentage": 0,
-                        "taxIncludedAmount": {
-                            "unit": "string",
-                            "value": 0
-                        },
-                        "taxRate": 0
-                    },
-                    "priceAlteration": null,
-                    "priceType": "string",
-                    "productOfferingPrice": {
-                        "@baseType": "string",
-                        "@referredType": "string",
-                        "@schemaLocation": null,
-                        "@type": "string",
-                        "href": "string",
-                        "id": "string",
-                        "name": "string"
-                    },
-                    "recurringChargePeriod": "string",
-                    "unitOfMeasure": "string"
-                }
-            ],
+            //     {
+            //         "@baseType": "string",
+            //         "@schemaLocation": null,
+            //         "@type": "string",
+            //         "billingAccount": {
+            //             "@baseType": "string",
+            //             "@referredType": "string",
+            //             "@schemaLocation": null,
+            //             "@type": "string",
+            //             "href": "string",
+            //             "id": "sring",
+            //             "name": "string"
+            //         },
+            //         "description": "string",
+            //         "name": "string",
+            //         "price": {
+            //             "@baseType": "string",
+            //             "@schemaLocation": null,
+            //             "@type": "string",
+            //             "dutyFreeAmount": {
+            //                 "unit": "string",
+            //                 "value": 0
+            //             },
+            //             "percentage": 0,
+            //             "taxIncludedAmount": {
+            //                 "unit": "string",
+            //                 "value": 0
+            //             },
+            //             "taxRate": 0
+            //         },
+            //         "priceAlteration": null,
+            //         "priceType": "string",
+            //         "productOfferingPrice": {
+            //             "@baseType": "string",
+            //             "@referredType": "string",
+            //             "@schemaLocation": null,
+            //             "@type": "string",
+            //             "href": "string",
+            //             "id": "string",
+            //             "name": "string"
+            //         },
+            //         "recurringChargePeriod": "string",
+            //         "unitOfMeasure": "string"
+            //     }
+            // ],
+
+            "orderTotalPrice": resultListOrder,
+
             "productOrderItem": [
 
                 {
@@ -210,11 +234,10 @@ function ProductDetails(props) {
                 if (response.status == 200) {
                     // history.push('/CartProduct')
 
-                    history.push('/CartProduct')
-
-
-
-
+                    history.push({
+                        pathname: '/CartProduct',
+                        state: { listOrder: sendData }
+                    })
                     alert('ORDER THANH CONG')
                 } else {
                     alert('ORDER THAT BAI')
