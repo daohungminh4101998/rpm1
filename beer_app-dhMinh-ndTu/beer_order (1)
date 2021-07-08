@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "8af55bd3-4c6d-4ccd-afe9-c4f148e8705d",
+		"name": "PRODUCT_ORDER_API",
+		"description": "Postman Echo is service you can use to test your REST clients and make sample API calls. It provides endpoints for `GET`, `POST`, `PUT`, various auth mechanisms and other utility endpoints.\n\nThe documentation for the endpoints as well as example responses can be found at [https://postman-echo.com](https://postman-echo.com/?source=echo-collection-app-onboarding)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET_BEER_ORDER_ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://codetrau.com:8082/order/beerOrders/621070010",
+					"protocol": "http",
+					"host": [
+						"codetrau",
+						"com"
+					],
+					"port": "8082",
+					"path": [
+						"order",
+						"beerOrders",
+						"621070010"
+					]
+				},
+				"description": "get by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "SAVE_BEER_ORDER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"621070016\",\r\n    \"href\": null,\r\n    \"cancellationDate\": null,\r\n    \"cancellationReason\": null,\r\n    \"category\": null,\r\n    \"completionDate\": null,\r\n    \"description\": null,\r\n    \"expectedCompletionDate\": null,\r\n    \"externalId\": null,\r\n    \"notificationContact\": null,\r\n    \"orderDate\": null,\r\n    \"priority\": null,\r\n    \"requestedCompletionDate\": null,\r\n    \"requestedStartDate\": null,\r\n    \"agreement\": null,\r\n    \"billingAccount\": null,\r\n    \"channel\": null,\r\n    \"note\": [\r\n        {\r\n            \"id\": \"333333333333333\",\r\n            \"author\": null,\r\n            \"date\": null,\r\n            \"text\": \"http://www.tesst.com\",\r\n            \"@baseType\": null,\r\n            \"@schemaLocation\": null,\r\n            \"@type\": \"Note\"\r\n        }\r\n    ],\r\n    \"orderTotalPrice\": null,\r\n    \"payment\": null,\r\n    \"productOfferingQualification\": null,\r\n    \"quote\": [\r\n        {\r\n            \"validFor\": null,\r\n            \"state\": null,\r\n            \"note\": null,\r\n            \"lastStateChangedDate\": null,\r\n            \"id\": \"00000007\",\r\n            \"href\": null,\r\n            \"name\": \"Test\",\r\n            \"@baseType\": null,\r\n            \"@schemaLocation\": null,\r\n            \"@type\": \"QuoteRef\",\r\n            \"@referredType\": null\r\n        }\r\n    ],\r\n    \"state\": \"inProgress\",\r\n    \"@baseType\": null,\r\n    \"@schemaLocation\": null,\r\n    \"@type\": \"BeerOrder\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://codetrau.com:8082/order/beerOrders",
+					"protocol": "http",
+					"host": [
+						"codetrau",
+						"com"
+					],
+					"port": "8082",
+					"path": [
+						"order",
+						"beerOrders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_BEER_ORDER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://codetrau.com:8082/order/beerOrders",
+					"protocol": "http",
+					"host": [
+						"codetrau",
+						"com"
+					],
+					"port": "8082",
+					"path": [
+						"order",
+						"beerOrders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
