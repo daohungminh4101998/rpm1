@@ -3,13 +3,13 @@ import { Table } from 'reactstrap';
 import { ButtonToggle } from "reactstrap";
 import axios from 'axios'
 import * as BEERAPP from './../utils/index';
-import { useHistory } from 'react-router-dom';
-
+import { Router, useHistory, useLocation, Route } from 'react-router-dom';
+import CartProduct from './CartProduct'
 function ProcessProduct(props) {
-
     const [fakeApi, setFakeApi] = useState([])
     const [show, setShow] = useState(false);
     const [idShow, setIdShow] = useState(null)
+    let history = useHistory();
     async function getBeerById() {
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}`, {
@@ -25,18 +25,23 @@ function ProcessProduct(props) {
 
     }
     useEffect(() => {
+
         getBeerById()
 
     }, [])
 
     const hendleReject = (idOrder) => {
-        //completed
-        alert('reject' + idOrder)
+
+        props.handleUpdateState(idOrder)
+
+
     }
-    let history = useHistory();
+    let location = {
+        pathname: `/CartProduct`,
+        query: { dev: '1' }
+    };
 
     const handleComPlete = (idOrder, itemArr) => {
-        console.log()
         const sendData = {
             "id": idOrder,
             "href": null,
@@ -93,6 +98,7 @@ function ProcessProduct(props) {
             "@type": "BeerOrder"
         }
 
+
         axios.post(`${BEERAPP.BASE_URL}`, sendData)
             .then(function (response) {
                 // console.log(response);
@@ -106,6 +112,7 @@ function ProcessProduct(props) {
             .catch(function (error) {
                 console.log(error);
             });
+
     }
     const handleShowItem = (itemId) => {
         setIdShow(itemId)

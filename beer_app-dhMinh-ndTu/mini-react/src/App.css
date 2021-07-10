@@ -1,16 +1,15 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.container{
+.container {
   position: relative;
   background-color: aqua;
   width: 100%;
   height: 100vh;
-
 }
-.auth-form{
+.auth-form {
   position: absolute;
   top: 15%;
   left: 36%;
@@ -19,25 +18,24 @@
   padding: 20px 20px;
   transition: 0.5s;
 }
-.auth-form:hover{
-  box-shadow: 2px 4px 16px 8px rgba(0,0,0,0.71);
-
+.auth-form:hover {
+  box-shadow: 2px 4px 16px 8px rgba(0, 0, 0, 0.71);
 }
 
-.text-top{
+.text-top {
   margin-bottom: 14px;
 }
 
-h2{
+h2 {
   font-weight: 500;
   text-align: center;
 }
 
-.switch_button{
+.switch_button {
   text-align: center;
 }
 
-.switch_button .btn_login{
+.switch_button .btn_login {
   width: 100%;
   height: 50px;
   background-color: white;
@@ -47,15 +45,15 @@ h2{
   background-repeat: no-repeat;
   background-size: 8%;
   background-position: 4%;
-  cursor: pointer; 
+  cursor: pointer;
   transition: 0.5s;
 }
 
-.btn_login:hover{
-  transform: scale(0.9)
+.btn_login:hover {
+  transform: scale(0.9);
 }
 
-.switch_button .btn_login button{
+.switch_button .btn_login button {
   text-align: center;
   line-height: 50px;
   font-size: 20px;
@@ -65,8 +63,8 @@ h2{
   border: none;
 }
 
-.switch_button .btn_or{
-  color: grey; 
+.switch_button .btn_or {
+  color: grey;
   width: 100%;
   text-align: center;
   border-bottom: 2px solid grey;
@@ -74,43 +72,42 @@ h2{
   margin: 30px auto;
 }
 
-.switch_button .btn_or span{
+.switch_button .btn_or span {
   font-weight: bold;
   line-height: 1px;
   background: #fff;
-  padding: 0 10px; 
+  padding: 0 10px;
 }
 
 .auth-form__group input {
   width: 100%;
   height: 50px;
   border-radius: 5px;
-  border: 2px solid #9C9C9C;
+  border: 2px solid #9c9c9c;
   margin-bottom: 15px;
   padding: 0 5px;
 }
 
-
-.footer_btn{
+.footer_btn {
   text-align: center;
 }
-.footer_btn .register{
+.footer_btn .register {
   width: 100%;
   height: 50px;
   border-radius: 5px;
   background-color: aqua;
-  color: #FFF;
+  color: #fff;
   font-weight: 500;
   font-size: 20px;
-  cursor: pointer; 
+  cursor: pointer;
   transition: 0.5s;
 }
 
-.footer_btn button:hover{
+.footer_btn button:hover {
   transform: scale(0.9);
 }
 
-::placeholder{
+::placeholder {
   font-size: 1rem;
   font-weight: bold;
   padding-left: 0 4px;
@@ -119,48 +116,156 @@ h2{
 /* End register form */
 
 /* Login form */
-.footer_btn .login{
+.footer_btn .login {
   width: 100%;
   height: 50px;
   border: none;
   border-radius: 5px;
   background-color: aqua;
-  color: #FFF;
+  color: #fff;
   font-weight: 500;
   font-size: 20px;
-  cursor: pointer; 
+  cursor: pointer;
   transition: 0.5s;
 }
 
-
+.footer_btn:hover {
+  transform: scale(0.9);
+}
 
 /* end Login form */
+
+/* Product details */
 .card {
-  width: 25%;
+  width: 24%;
+}
+.infor_order {
+  text-align: center;
+  font-size: 1.5rem;
 }
 .wrap-product-details-app {
   width: 100%;
-  display: flex;
+  height: 100%;
 }
 
 .wrap-product-details {
+  height: 100%;
+}
+.main_product {
+  position: relative;
   margin: auto;
-}
-.border-right {
-  border-right: 1px solid;
-  padding: 0px 4px;
+  width: 50%;
+  height: 100%;
 }
 
-.border-top {
-  border-top: 1px solid;
-  padding-top: 10px;
+.img-product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.count-product.d-flex button {
+.sell-out {
+  display: flex;
+  margin-left: 155px;
+  color: grey;
+}
+.line {
+  width: 2px;
+  height: 20px;
+  background-color: grey;
+  margin: 2px 5px 2px 5px;
+  display: block;
+}
+.sell-out-left {
+  font-weight: 500;
+}
+.price_quantity {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.price_quantity-left {
+  display: flex;
+  align-items: center;
+}
+.price_quantity-right {
+  display: flex;
+  align-items: center;
+}
+.decrement-count {
+  margin-right: 15px;
   width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  border-radius: 50% 50% 50% 50%;
+  color: grey;
+}
+.number-count {
+  margin-right: 15px;
+  padding-top: 4px;
+}
+.increment-count {
+  border-radius: 50% 50% 50% 50%;
+  width: 30px;
+  background-color: red;
+  color: #fff;
+}
+.text_infor {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: flex-end;
+  margin-right: 30px;
+}
+.name_number {
+  margin-right: 196px;
+  text-align: left;
+}
+.address {
+  margin-left: 250px;
+  font-size: 25px;
+  flex-wrap: wrap;
+  margin-right: 100px;
+}
+.quantity {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+/* .tong{
+  margin-right: 20px;
+} */
+
+.fee_ship {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.voucher {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.total {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.payment {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.payment-button {
+  width: 60%;
+  height: 50px;
+  background-color: red;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.payment button:hover {
+  transform: scale(0.9);
 }
 
-.price.d-flex.justify-content-between {
-  height: 250px;
-}
+/* end product detail */

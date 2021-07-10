@@ -112,7 +112,7 @@ function Products(props) {
     const renderData = fakeApi.map((itemBeer, index) => {
         if (itemBeer.state == "acknowledged") {
             return (
-                <Card key={index} >
+                <Card key={index} className="mb-3">
                     <CardImg top width="318px" height="180px" src={fakeimg} alt="Card image cap" />
                     <CardBody>
                         <NavLink arrItemOrder={arrItemOrder} to={{
@@ -139,7 +139,7 @@ function Products(props) {
                 <h1 style={styleLineHeight}>Danh sach loai bia</h1>
                 <h2 style={styleLineHeight}>Gio hang </h2>
             </div>
-            <div className="d-flex flex-wrap">
+            <div className="d-flex flex-wrap justify-content-around">
 
                 {renderData}
             </div>

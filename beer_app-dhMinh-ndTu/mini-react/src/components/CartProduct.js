@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table } from 'reactstrap';
 import * as BEERAPP from './../utils/index';
 import axios from 'axios'
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+import UserContext from './UserContext'
+
 function CartProduct(props) {
     let location = useLocation();
-
-    let locationId = location.state.listOrder.id
+    let history = useHistory();
+    let { slug } = useParams();
+    const user = useContext(UserContext)
+    const [reRender, setReRender] = useState(props.updateState);
+    let locationId = location.state != undefined ? location.state.listOrder.id : []
     const [fakeApi, setFakeApi] = useState([])
     async function getBeerById() {
         try {
@@ -22,11 +27,19 @@ function CartProduct(props) {
         }
 
     }
+    let cls;
     useEffect(() => {
-        console.log('update', fakeApi.state)
-        getBeerById()
+        // if (props.updateState != "") {
+        //     window.location.reload();
+        // }
+        cls = setInterval(() => {
+            getBeerById()
+        }
+            , 10)
 
-    }, [fakeApi.state])
+
+    }, [])
+
     const renderOrder = fakeApi.orderTotalPrice != undefined ? fakeApi.orderTotalPrice.map((item, index) => {
         return (
             // <tbody>
@@ -46,7 +59,7 @@ function CartProduct(props) {
             //     </tr>
             // </tbody>
 
-            <tbody>
+            <tbody key={index}>
                 <tr>
                     <td>{index}</td>
                     <td>{item.name}</td>
@@ -58,12 +71,7 @@ function CartProduct(props) {
                 </tr>
             </tbody>
         )
-
-
     }) : []
-
-
-
     const renderOrderProgress = fakeApi.length > 0 ? fakeApi.map((item, index) => {
         if (item.state == 'inProgress') {
             return (
@@ -91,7 +99,6 @@ function CartProduct(props) {
                         <td>1</td>
                         <td>1000</td>
                         <td>hom nay</td>
-
                         <td>{item.state}</td>
                     </tr>
                 </tbody>
@@ -123,16 +130,11 @@ function CartProduct(props) {
                     </tr>
                 </thead>
                 {renderOrder}
-
-
-
             </Table>
-
             <Table>
                 <thead>
                     <tr>
                         <th colSpan={3}>danh sach dang order</th>
-
                     </tr>
                 </thead>
                 <thead>
@@ -147,9 +149,6 @@ function CartProduct(props) {
                     </tr>
                 </thead>
                 {/* {renderOrderProgress} */}
-
-
-
             </Table>
 
 

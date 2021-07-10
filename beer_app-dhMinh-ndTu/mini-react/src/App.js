@@ -1,6 +1,7 @@
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserProvider } from './components/UserContext'
 
 import Register from './components/Register';
 
@@ -22,37 +23,47 @@ import PrivateRoute from './components/PrivateRoute';
 import PageErr from './components/PageErr';
 
 
+
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useHistory,
   // Link,
   // Redirect,
   // useHistory,
   // useLocation
 } from "react-router-dom";
+import { useEffect, useState, useContext } from 'react';
+
 function App() {
+  const [user, setUser] = useState("")
+
+
+  let history = useHistory()
+  const [updateState, setUpdateState] = useState("")
+  const [flagRender, setFlagRender] = useState(false)
+  const handleUpdateState = (dataState) => {
+    alert(dataState)
+    setUser(dataState)
+    setUpdateState('change...')
+    setFlagRender(true)
+  }
+
+  console.log(user)
+  const [nombres, setNombres] = useState("");
+  const handleClick = (data) => {
+    setNombres(data);
+  };
+
   return (
     <div className="App">
-
-      {/* <Router>
-
-        <Switch>
-          <Route path="/products">
-            <Products />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-        </Switch>
-      </Router> */}
       <Router>
         <Switch>
-
           <Route
             path="/products/:slug"
             render={({ match }, ...rest) => {
-
               return <ProductDetails rest={rest} match={match} />;
             }}
           />
@@ -85,11 +96,13 @@ function App() {
           <PrivateRoute path="/addpro">
             <AddProduct />
           </PrivateRoute>
-          <PrivateRoute path="/processpro">
-            <ProcessProduct />
+
+          <PrivateRoute updateState={updateState} path="/cartproduct">
+            <CartProduct nombres={nombres} updateState={updateState} />
           </PrivateRoute>
-          <PrivateRoute path="/cartproduct">
-            <CartProduct />
+
+          <PrivateRoute user={user} path="/processpro">
+            <ProcessProduct handleUpdateState={handleUpdateState} handleClick={handleClick} updateState={updateState} />
           </PrivateRoute>
 
           <Route path="/:slug">
