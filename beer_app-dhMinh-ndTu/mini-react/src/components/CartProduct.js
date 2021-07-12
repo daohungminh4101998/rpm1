@@ -1,19 +1,20 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'reactstrap';
 import * as BEERAPP from './../utils/index';
 import axios from 'axios'
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import UserContext from './UserContext'
-
+import { useLocation } from 'react-router-dom';
+import fake from '../assets/img/fake.jpg'
 function CartProduct(props) {
     let location = useLocation();
-    let history = useHistory();
-    let { slug } = useParams();
-    const user = useContext(UserContext)
-    const [reRender, setReRender] = useState(props.updateState);
+    // let history = useHistory();
+    // let { slug } = useParams();
+    // const user = useContext(UserContext);
+    // const [stateApi, setStateApi] = useState("");
+    // const [reRender, setReRender] = useState(props.updateState);
     let locationId = location.state != undefined ? location.state.listOrder.id : []
     const [fakeApi, setFakeApi] = useState([])
     async function getBeerById() {
+
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}/${locationId}`, {
                 headers: {
@@ -27,20 +28,18 @@ function CartProduct(props) {
         }
 
     }
-    let cls;
+    const styleTable = {
+        height: '50px',
+        lineHeight: '50px'
+    }
+    // let cls;
     useEffect(() => {
-        // if (props.updateState != "") {
-        //     window.location.reload();
-        // }
-        cls = setInterval(() => {
-            getBeerById()
-        }
-            , 10)
-
-
+        getBeerById() //state:inproGress
     }, [])
-
+    let totalCount = 0;
     const renderOrder = fakeApi.orderTotalPrice != undefined ? fakeApi.orderTotalPrice.map((item, index) => {
+        totalCount += item.price.taxIncludedAmount.value
+
         return (
             // <tbody>
             //     <tr>
@@ -59,17 +58,17 @@ function CartProduct(props) {
             //     </tr>
             // </tbody>
 
-            <tbody key={index}>
+            <tbody className="text-center" key={index} style={styleTable} >
                 <tr>
                     <td>{index}</td>
                     <td>{item.name}</td>
+                    <td><img src={fake} width="50px" height="50px" /></td>
                     <td>1</td>
-                    <td>{item.price.taxIncludedAmount.value}</td>
-                    <td>hom nay</td>
-
                     <td>{fakeApi.state}</td>
+                    <td>hom nay</td>
+                    <td>{BEERAPP.digitalNumber(item.price.taxIncludedAmount.value)}</td>
                 </tr>
-            </tbody>
+            </tbody >
         )
     }) : []
     const renderOrderProgress = fakeApi.length > 0 ? fakeApi.map((item, index) => {
@@ -100,6 +99,7 @@ function CartProduct(props) {
                         <td>1000</td>
                         <td>hom nay</td>
                         <td>{item.state}</td>
+
                     </tr>
                 </tbody>
             )
@@ -111,25 +111,31 @@ function CartProduct(props) {
 
     return (
         <>
-            <Table>
-                <thead>
+            <Table className="table table-hover">
+                <thead class="text-center">
                     <tr>
-                        <th colSpan={3}>danh sach order</th>
+                        <th colSpan={7}>danh sach order</th>
 
                     </tr>
                 </thead>
                 <thead>
-                    <tr>
+                    <tr class="text-center">
 
                         <th>stt</th>
                         <th>ten sp</th>
+
+                        <th>hinh anh mo ta</th>
                         <th>so luong</th>
-                        <th>gia</th>
-                        <th>ngay order</th>
                         <th>trang thai</th>
+                        <th>ngay order</th>
+                        <th>gia</th>
                     </tr>
                 </thead>
                 {renderOrder}
+                <tr>
+                    <th colSpan={6}>TONG GIA :</th>
+                    <th className="text-center">{BEERAPP.digitalNumber(totalCount)} VND</th>
+                </tr>
             </Table>
             <Table>
                 <thead>

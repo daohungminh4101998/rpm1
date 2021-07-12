@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 
 const CustomIput = ({ ...rest }) => {
-    const { forLabel, name, valueInput, placeholder, type, infoProduct, setInfoProduct } = rest;
-    const [stateName, setStateName] = useState('');
+    const { forLabel, name, placeholder, type, infoProduct, setInfoProduct } = rest;
     const handleSetInput = (e) => {
         setInfoProduct({ ...infoProduct, [e.target.name]: e.target.value })
     }

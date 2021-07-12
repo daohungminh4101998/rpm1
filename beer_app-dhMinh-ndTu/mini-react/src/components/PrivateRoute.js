@@ -1,18 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import AddProduct from './AddProduct'
 import {
-    BrowserRouter as Router,
-    Switch,
     Route,
-    Link,
-    Redirect,
-    useHistory,
-    useLocation
+    Redirect
 } from "react-router-dom";
-PrivateRoute.propTypes = {
-
-};
 
 function PrivateRoute({ children, ...rest }) {
     console.log()

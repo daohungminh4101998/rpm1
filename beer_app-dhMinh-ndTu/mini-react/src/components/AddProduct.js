@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 // import { useRouteMatch } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form } from 'reactstrap';
 // import fakeimg from '../assets/img/fake.jpg';
 import axios from 'axios';
 import * as BEERAPP from './../utils/index';
 import CustomIput from './CustomComponent/CustomIput'
-import * as BEER from './CallApi'
 ProductDetails.propTypes = {
 
 };
@@ -76,7 +75,7 @@ function ProductDetails(props) {
     const addProducts = () => {
         axios.post(`${BEERAPP.BASE_URL}`, sendData)
             .then(function (response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     alert('them thanh cong')
                     window.location.reload()
                 } else {

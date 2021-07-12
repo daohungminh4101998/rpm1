@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
 import {
-    Button, Form, FormGroup, Label, Input, FormText, Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle,
+    Button, Card, CardImg, CardText, CardBody,
+    CardTitle,
 } from 'reactstrap';
-import * as BEERAPP from './../utils/index';
 import fakeimg from '../assets/img/fake.jpg';
+import Https from '../service/Https';
 
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     NavLink,
     useHistory,
     // Redirect,
     // useHistory,
     // useLocation
 } from "react-router-dom";
-
-Products.propTypes = {
-
-};
-
 
 // ACKNOWLEDGED("acknowledged"),
 
@@ -51,6 +42,7 @@ Products.propTypes = {
 // SCHEDULED("scheduled)"
 function Products(props) {
     const [fakeApi, setFakeApi] = useState([])
+    const [isLoading, setIsloading] = useState(true)
     const [arrItemOrder, setArrItemOrder] = useState([])
     let history = useHistory()
     //export const BASE_URL = "http://codetrau.com:8082/order/beerOrders"
@@ -58,20 +50,13 @@ function Products(props) {
     const addProduct = () => {
 
     }
-    const { match } = props;
     async function getBeerById() {
-        try {
-            const response = await axios.get(`${BEERAPP.BASE_URL}`, {
-                headers: {
-                    Accept: "*/*",
-                }
-            });
-            setFakeApi(response.data)
-        } catch (error) {
-            console.error(error);
-        }
-
+        const response = await Https.get();
+        setIsloading(false)
+        setFakeApi(response.data)
     }
+    const { match } = props;
+
     useEffect(() => {
         getBeerById()
     }, [])
@@ -99,6 +84,13 @@ function Products(props) {
         setArrItemOrder([...arrItemOrder, itemBeer])
 
     }
+    const handleBuyNow = (indexBeer, itemBeer) => {
+        history.push({
+            pathname: `/products/${indexBeer}`,
+            state: { dataOrder: [itemBeer] }
+        })
+    }
+    //  console.log(arrItemOrder)
     const styleLineHeight = {
         height: '50px',
         lineHeight: '50px'
@@ -107,6 +99,9 @@ function Products(props) {
         history.push({
             state: { data: arrItemOrder }
         })
+    }
+    const styleColor = {
+        color: '#333'
     }
     //console.log(arrItemOrder)
     const renderData = fakeApi.map((itemBeer, index) => {
@@ -122,10 +117,12 @@ function Products(props) {
                         }} onClick={() => { handleNav(itemBeer.id) }}>
                             <CardTitle tag="h5"> {itemBeer.category == null ? 'Bia demo' : itemBeer.category} </CardTitle>
                             {/* <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle> */}
-                            <CardText>{truncate(itemBeer.description)}</CardText>
+                            <CardText style={styleColor}>{truncate(itemBeer.description)}</CardText>
                         </NavLink>
 
-                        <Button onClick={() => { handleOrderBeer(itemBeer.id, itemBeer) }}>Add to Cart</Button>
+                        <Button className="mr-1" color="primary" onClick={() => { handleOrderBeer(itemBeer.id, itemBeer) }}>Add to Cart</Button>
+
+                        <Button color="success" onClick={() => { handleBuyNow(itemBeer.id, itemBeer) }}>Buy now</Button>
                     </CardBody>
                 </Card >
             )
@@ -141,7 +138,12 @@ function Products(props) {
             </div>
             <div className="d-flex flex-wrap justify-content-around">
 
-                {renderData}
+                {isLoading == true ?
+                    <>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </> : renderData}
             </div>
 
         </div>

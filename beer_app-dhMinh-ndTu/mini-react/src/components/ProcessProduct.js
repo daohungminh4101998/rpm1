@@ -3,8 +3,7 @@ import { Table } from 'reactstrap';
 import { ButtonToggle } from "reactstrap";
 import axios from 'axios'
 import * as BEERAPP from './../utils/index';
-import { Router, useHistory, useLocation, Route } from 'react-router-dom';
-import CartProduct from './CartProduct'
+import { useHistory } from 'react-router-dom';
 function ProcessProduct(props) {
     const [fakeApi, setFakeApi] = useState([])
     const [show, setShow] = useState(false);
@@ -22,13 +21,12 @@ function ProcessProduct(props) {
         } catch (error) {
             console.error(error);
         }
-
     }
     useEffect(() => {
 
         getBeerById()
 
-    }, [])
+    }, [fakeApi.id])
 
     const hendleReject = (idOrder) => {
 
@@ -102,7 +100,7 @@ function ProcessProduct(props) {
         axios.post(`${BEERAPP.BASE_URL}`, sendData)
             .then(function (response) {
                 // console.log(response);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     alert('ORDER THANH CONG')
 
                 } else {
@@ -121,7 +119,7 @@ function ProcessProduct(props) {
 
     }
     const renderOrder = fakeApi.length > 0 ? fakeApi.map((item, index) => {
-        if (item.state == 'inProgress') {
+        if (item.state === 'inProgress') {
             if (item.orderTotalPrice != null) {
                 return (
                     <tbody>
@@ -130,7 +128,7 @@ function ProcessProduct(props) {
 
                             <th scope="row">{item.id}</th>
                             <td>{item.category}</td>
-                            <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : 1}</td>
+                            <td>{item.productOrderItem[0] !== undefined ? item.productOrderItem[0].quantity : 1}</td>
                             <td></td>
 
                             <td>{item.orderDate}</td>
@@ -142,7 +140,7 @@ function ProcessProduct(props) {
                             <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => hendleReject(item.id)} color="danger">Tu choi</ButtonToggle>{' '}</td>
                         </tr>
                         {
-                            show == true && idShow == item.id && item.orderTotalPrice != null ? item.orderTotalPrice.map((itemSub, index) => {
+                            show === true && idShow === item.id && item.orderTotalPrice != null ? item.orderTotalPrice.map((itemSub, index) => {
                                 return (
                                     <tr>
                                         <th scope="row" onClick={handleShowItem}></th>

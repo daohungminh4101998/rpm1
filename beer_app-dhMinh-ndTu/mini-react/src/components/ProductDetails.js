@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Jumbotron, Button } from 'reactstrap';
 import fakeimg from '../assets/img/fake.jpg';
 import * as BEERAPP from './../utils/index';
 import axios from 'axios'
+import Https from '../service/Https';
 
-ProductDetails.propTypes = {
-
-};
 
 function ProductDetails(props) {
     let location = useLocation();
     // console.log(location)
     let listOrder = location.state.dataOrder;
+    console.log(location)
+
     let resultListOrder = listOrder.map((item, index) => {
         return {
             "description": item.category,
@@ -36,7 +34,6 @@ function ProductDetails(props) {
             "state": "inProgress",//inProgress
         }
     })
-    ////console.log(resultListOrder)
     const [fakeApi, setFakeApi] = useState([])
     const [stateData, setStateData] = useState([])
     async function getBeerById() {
@@ -55,6 +52,7 @@ function ProductDetails(props) {
         } catch (error) {
             console.error(error);
         }
+
 
     }
     const [countBeer, setCountBeer] = useState(1)
@@ -85,7 +83,7 @@ function ProductDetails(props) {
         const orderNow = Date.now();
         var dateobj = new Date(orderNow);
         var convertDateISO = dateobj.toISOString();
-        const fakeIDcustom = '123443210'
+        const fakeIDcustom = '0000099999'
         const sendData = {
             "id": fakeIDcustom,
             "href": null,
@@ -115,59 +113,8 @@ function ProductDetails(props) {
                     "@type": "Note"
                 }
             ],
-            // "orderTotalPrice": null,
-            // "orderTotalPrice": [
-
-            //     {
-            //         "@baseType": "string",
-            //         "@schemaLocation": null,
-            //         "@type": "string",
-            //         "billingAccount": {
-            //             "@baseType": "string",
-            //             "@referredType": "string",
-            //             "@schemaLocation": null,
-            //             "@type": "string",
-            //             "href": "string",
-            //             "id": "sring",
-            //             "name": "string"
-            //         },
-            //         "description": "string",
-            //         "name": "string",
-            //         "price": {
-            //             "@baseType": "string",
-            //             "@schemaLocation": null,
-            //             "@type": "string",
-            //             "dutyFreeAmount": {
-            //                 "unit": "string",
-            //                 "value": 0
-            //             },
-            //             "percentage": 0,
-            //             "taxIncludedAmount": {
-            //                 "unit": "string",
-            //                 "value": 0
-            //             },
-            //             "taxRate": 0
-            //         },
-            //         "priceAlteration": null,
-            //         "priceType": "string",
-            //         "productOfferingPrice": {
-            //             "@baseType": "string",
-            //             "@referredType": "string",
-            //             "@schemaLocation": null,
-            //             "@type": "string",
-            //             "href": "string",
-            //             "id": "string",
-            //             "name": "string"
-            //         },
-            //         "recurringChargePeriod": "string",
-            //         "unitOfMeasure": "string"
-            //     }
-            // ],
-
             "orderTotalPrice": resultListOrder,
-
             "productOrderItem": [
-
                 {
                     "id": "Tiger-123",
                     "quantity": quantity - countBeer,
