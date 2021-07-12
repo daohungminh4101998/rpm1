@@ -2,24 +2,24 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Register from './components/Register';
+// import Register from './components/Register';
 
-import Login from './components/Login';
+// import Login from './components/Login';
 
-import Products from './components/Products';
+// import Products from './components/Products';
 
-import ProductDetails from './components/ProductDetails';
+// import ProductDetails from './components/ProductDetails';
 
-import AddProduct from './components/AddProduct';
+// import AddProduct from './components/AddProduct';
 
-import ProcessProduct from './components/ProcessProduct';
+// import ProcessProduct from './components/ProcessProduct';
 
-import CartProduct from './components/CartProduct';
+// import CartProduct from './components/CartProduct';
 
+// import PageErr from './components/PageErr';
 
 import PrivateRoute from './components/PrivateRoute';
 
-import PageErr from './components/PageErr';
 
 import routes from './components/CustomRoute/Route'
 
@@ -36,6 +36,7 @@ import {
   // useLocation
 } from "react-router-dom";
 import { useState } from 'react';
+import AuthAdminLogin from './components/AuthAdminLogin';
 function App() {
   const queryClient = new QueryClient();
   const [user, setUser] = useState("")
@@ -63,6 +64,13 @@ function App() {
                 <PrivateRoute exact={route.exact} path={route.path}>
                   {route.components}
                 </PrivateRoute>
+              )
+            }
+            else if (route.authLogin == true) {
+              return (
+                <AuthAdminLogin exact={route.exact} path={route.path}>
+                  {route.components}
+                </AuthAdminLogin>
               )
             }
             else {

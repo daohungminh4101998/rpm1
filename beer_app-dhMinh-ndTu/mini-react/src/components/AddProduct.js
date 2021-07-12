@@ -16,60 +16,60 @@ function ProductDetails(props) {
             desProduct: '',
         }
     )
-    const sendData = {
-        "id": null,
-        "href": null,
-        "nameProduct": "Bia Hà Nội tu client",
-        "price": 100000000000,
-        "cancellationDate": null,
-        "cancellationReason": null,
-        "category": infoProduct.nameProduct,
-        "completionDate": null,
-        "description": infoProduct.desProduct,
-        "expectedCompletionDate": null,
-        "externalId": null,
-        "notificationContact": null,
-        "orderDate": null,
-        "priority": null,
-        "requestedCompletionDate": null,
-        "requestedStartDate": null,
-        "agreement": null,
-        "billingAccount": null,
-        "channel": null,
-        "note": [
-            {
-                "id": "333333333333333",
-                "author": null,
-                "date": null,
-                "text": "http://www.tesst.com",
-                "@baseType": null,
-                "@schemaLocation": null,
-                "@type": "Note"
-            }
-        ],
-        "orderTotalPrice": null,
-        "payment": null,
-        "productOfferingQualification": null,
-        "quote": [
-            {
-                "validFor": null,
-                "state": null,
-                "note": null,
-                "lastStateChangedDate": null,
-                "id": "00000007",
-                "href": null,
-                "name": "BIA ORDER-DEMO",
-                "@baseType": null,
-                "@schemaLocation": null,
-                "@type": "QuoteRef",
-                "@referredType": null
-            }
-        ],
-        "state": "acknowledged",
-        "@baseType": null,
-        "@schemaLocation": null,
-        "@type": "BeerOrder"
-    }
+    // const sendData = {
+    //     "id": null,
+    //     "href": null,
+    //     "nameProduct": "Bia Hà Nội tu client",
+    //     "price": 100000000000,
+    //     "cancellationDate": null,
+    //     "cancellationReason": null,
+    //     "category": 'haha',
+    //     "completionDate": null,
+    //     "description": 'haha',
+    //     "expectedCompletionDate": null,
+    //     "externalId": null,
+    //     "notificationContact": null,
+    //     "orderDate": null,
+    //     "priority": null,
+    //     "requestedCompletionDate": null,
+    //     "requestedStartDate": null,
+    //     "agreement": null,
+    //     "billingAccount": null,
+    //     "channel": null,
+    //     "note": [
+    //         {
+    //             "id": "333333333333333",
+    //             "author": null,
+    //             "date": null,
+    //             "text": "http://www.tesst.com",
+    //             "@baseType": null,
+    //             "@schemaLocation": null,
+    //             "@type": "Note"
+    //         }
+    //     ],
+    //     "orderTotalPrice": null,
+    //     "payment": null,
+    //     "productOfferingQualification": null,
+    //     "quote": [
+    //         {
+    //             "validFor": null,
+    //             "state": null,
+    //             "note": null,
+    //             "lastStateChangedDate": null,
+    //             "id": "00000007",
+    //             "href": null,
+    //             "name": "BIA ORDER-DEMO",
+    //             "@baseType": null,
+    //             "@schemaLocation": null,
+    //             "@type": "QuoteRef",
+    //             "@referredType": null
+    //         }
+    //     ],
+    //     "state": "acknowledged",
+    //     "@baseType": null,
+    //     "@schemaLocation": null,
+    //     "@type": "BeerOrder"
+    // }
 
 
     const addProducts = () => {
@@ -86,13 +86,9 @@ function ProductDetails(props) {
         //         console.log(error);
         //     });
         addProductList();
-
-
-
-
     }
     async function addProductList() {
-        const addPro = await Https.post(`${BEERAPP.BASE_URL}`, sendData);
+        const addPro = await Https.post(`${BEERAPP.BASE_URL}`, BEERAPP.sendData(infoProduct.nameProduct, infoProduct.desProduct));
         alert('thanh cong')
         setInfoProduct({
             nameProduct: '',

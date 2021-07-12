@@ -1,24 +1,28 @@
 import React from 'react';
 import {
     Route,
-    Redirect
+    Redirect,
+    useLocation,
+    useHistory
 } from "react-router-dom";
 
-function PrivateRoute({ children, ...rest }) {
+function AuthAdminLogin({ children, ...rest }) {
+    const location = useLocation();
 
+    const history = useHistory();
+    console.log(history)
     const authFakeLocal = JSON.parse(localStorage.getItem('authLogin'));
-    var tamp = true
-    console.log()
+    console.log(authFakeLocal)
     return (
         <Route
             {...rest}
             render={({ location }) =>
-                authFakeLocal != null ? (
+                authFakeLocal != null && authFakeLocal.role >= 2 && authFakeLocal.user == 'admin' ? (
                     children
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/login",
+                            pathname: `/`,
                         }}
                     />
                 )
@@ -28,4 +32,4 @@ function PrivateRoute({ children, ...rest }) {
     );
 }
 
-export default PrivateRoute;
+export default AuthAdminLogin;

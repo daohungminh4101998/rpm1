@@ -3,10 +3,10 @@ import Login from "../Login"
 import PageErr from "../PageErr";
 import ProcessProduct from "../ProcessProduct";
 import ProductDetails from "../ProductDetails";
-import Products from "../Products"
-import Register from "../Register"
+import Products from "../Products";
+import Register from "../Register";
 
-
+import AddProduct from "../AddProduct";
 
 const routes = [
     {
@@ -34,9 +34,15 @@ const routes = [
         components: <CartProduct />
     },
     {
-        path: '/processpro',
+        path: '/addpro',
         exact: false,
         privateRoute: true,
+        components: <AddProduct />
+    },
+    {
+        path: '/processpro',
+        exact: false,
+        authLogin: true,
         components: <ProcessProduct />
     },
     {

@@ -14,10 +14,19 @@ function Login() {
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value })
     }
     const handleLoginForm = () => {
-        if (loginForm.userName === 'admin' && loginForm.password === 'admin') {
-            localStorage.setItem("user", 'admin');
+        // var authLogin = { 'user': 'admin', 'role': 2 };
+        var authLogin = []
+        if ((loginForm.userName === 'admin' && loginForm.password === 'admin')) {
+            // authLogin.push()
+            localStorage.setItem('authLogin', JSON.stringify({ 'user': loginForm.userName, 'role': 2 }));
+            history.push("/processpro");
+        }
+        else if ((loginForm.userName === 'user' && loginForm.password === 'user')) {
+            // authLogin.push()
+            localStorage.setItem('authLogin', JSON.stringify({ 'user': loginForm.userName, 'role': 1 }));
             history.push("/");
         }
+
         if (loginForm.userName === '' || loginForm.password === '') { //Logical OR (||) - JavaScript | MDN
             //validate Styles
         }
