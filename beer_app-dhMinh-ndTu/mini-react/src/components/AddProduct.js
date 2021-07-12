@@ -6,9 +6,8 @@ import { Button, Form } from 'reactstrap';
 import axios from 'axios';
 import * as BEERAPP from './../utils/index';
 import CustomIput from './CustomComponent/CustomIput'
-ProductDetails.propTypes = {
+import Https from '../service/Https';
 
-};
 
 function ProductDetails(props) {
     const [infoProduct, setInfoProduct] = useState(
@@ -72,24 +71,37 @@ function ProductDetails(props) {
         "@type": "BeerOrder"
     }
 
+
     const addProducts = () => {
-        axios.post(`${BEERAPP.BASE_URL}`, sendData)
-            .then(function (response) {
-                if (response.status === 200) {
-                    alert('them thanh cong')
-                    window.location.reload()
-                } else {
-                    alert('them that bai')
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        // axios.post(`${BEERAPP.BASE_URL}`, sendData)
+        //     .then(function (response) {
+        //         if (response.status === 200) {
+        //             alert('them thanh cong')
+
+        //         } else {
+        //             alert('them that bai')
+        //         }
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+        addProductList();
+
+
+
+
+    }
+    async function addProductList() {
+        const addPro = await Https.post(`${BEERAPP.BASE_URL}`, sendData);
+        alert('thanh cong')
         setInfoProduct({
             nameProduct: '',
             desProduct: '',
             priceProduct: 0
         })
+    }
+    const addProducts1 = () => {
+
     }
 
     // console.log(infoProduct)
@@ -119,6 +131,8 @@ function ProductDetails(props) {
                 </FormGroup> */}
 
                 <Button onClick={() => addProducts()}>Thêm sản phẩm</Button>
+
+                <Button onClick={() => addProducts1()}>Thêm sản phẩm1</Button>
             </Form>
         </div>
     );

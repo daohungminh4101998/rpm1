@@ -7,7 +7,8 @@ import { useHistory } from 'react-router-dom';
 function ProcessProduct(props) {
     const [fakeApi, setFakeApi] = useState([])
     const [show, setShow] = useState(false);
-    const [idShow, setIdShow] = useState(null)
+    const [idShow, setIdShow] = useState(null);
+    const [updateState, setUpdateState] = useState("")
     let history = useHistory();
     async function getBeerById() {
         try {
@@ -26,7 +27,7 @@ function ProcessProduct(props) {
 
         getBeerById()
 
-    }, [fakeApi.id])
+    }, [updateState])
 
     const hendleReject = (idOrder) => {
 
@@ -102,6 +103,7 @@ function ProcessProduct(props) {
                 // console.log(response);
                 if (response.status === 200) {
                     alert('ORDER THANH CONG')
+                    setUpdateState(response.data.id)
 
                 } else {
                     alert('ORDER THAT BAI')

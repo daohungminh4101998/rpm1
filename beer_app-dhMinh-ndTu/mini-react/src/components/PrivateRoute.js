@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 
 function PrivateRoute({ children, ...rest }) {
-    console.log()
+    console.log(children)
+    console.log(rest)
     const authFakeLocal = localStorage.getItem('user');
     var tamp = true
     return (

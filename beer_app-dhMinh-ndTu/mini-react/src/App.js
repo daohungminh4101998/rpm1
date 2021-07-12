@@ -21,6 +21,7 @@ import PrivateRoute from './components/PrivateRoute';
 
 import PageErr from './components/PageErr';
 
+import routes from './components/CustomRoute/Route'
 
 // import { useQuery, useMutation, useQueryCache, QueryCache, ReactQueryCacheProvider } from 'react-query'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -53,9 +54,26 @@ function App() {
 
   return (
     <div className="App">
-      <QueryClientProvider client={queryClient} contextSharing={true}>
-        <Router>
-          <Switch>
+      {/* <QueryClientProvider client={queryClient} contextSharing={true}> */}
+      <Router>
+        <Switch>
+          {routes.map((route, indexRoute) => {
+            if (route.privateRoute == true) {
+              return (
+                <PrivateRoute exact={route.exact} path={route.path}>
+                  {route.components}
+                </PrivateRoute>
+              )
+            }
+            else {
+              return (
+                <Route path={route.path} exact={route.exact}>
+                  {route.components}
+                </Route>
+              )
+            }
+          })}
+          {/*
             <Route
               path="/products/:slug"
               render={({ match }, ...rest) => {
@@ -77,20 +95,20 @@ function App() {
             <PrivateRoute path="/addpro">
               <AddProduct />
             </PrivateRoute>
-            <PrivateRoute updateState={updateState} path="/cartproduct">
-              <CartProduct nombres={nombres} updateState={updateState} />
+            <PrivateRoute path="/cartproduct">
+              <CartProduct />
             </PrivateRoute>
             <PrivateRoute user={user} path="/processpro">
-              <ProcessProduct handleUpdateState={handleUpdateState} handleClick={handleClick} updateState={updateState} />
+              <ProcessProduct handleUpdateState={handleUpdateState} handleClick={handleClick} />
             </PrivateRoute>
             <Route path="/:slug">
               <PageErr />
-            </Route>
-          </Switch>
-        </Router>
-      </QueryClientProvider>
+            </Route> */}
+        </Switch>
+      </Router>
+      {/* </QueryClientProvider> */}
 
-    </div>
+    </div >
   );
 }
 
