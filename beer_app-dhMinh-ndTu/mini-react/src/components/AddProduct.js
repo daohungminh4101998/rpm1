@@ -104,30 +104,9 @@ function ProductDetails(props) {
     return (
         <div className="add-product-app">
             <h1>them san pham</h1>
-            <CustomIput
-                setInfoProduct={setInfoProduct}
-                infoProduct={infoProduct}
-                forLabel="Tên sản phẩm"
-                name="nameProduct"
-                type="text"
-                valueInput="valueInput"
-                placeholder="Nhập tên sản phẩm" />
-            <CustomIput
-                setInfoProduct={setInfoProduct}
-                infoProduct={infoProduct}
-                forLabel="Số lượng sản phẩm"
-                name="priceProduct"
-                type="number"
-                valueInput="valueInput"
-                placeholder="Nhập sl sản phẩm" />
-            <CustomIput
-                setInfoProduct={setInfoProduct}
-                infoProduct={infoProduct}
-                forLabel="Mô tả sản phẩm"
-                name="desProduct"
-                type="textarea"
-                valueInput="valueInput"
-                placeholder="Mô tả sản phẩm" />
+            <CustomIput setInfoProduct={setInfoProduct} infoProduct={infoProduct} forLabel="Tên sản phẩm" name="nameProduct" type="text" valueInput="valueInput" placeholder="Nhập tên sản phẩm" />
+            <CustomIput setInfoProduct={setInfoProduct} infoProduct={infoProduct} forLabel="Số lượng sản phẩm" name="priceProduct" type="number" valueInput="valueInput" placeholder="Nhập sl sản phẩm" />
+            <CustomIput setInfoProduct={setInfoProduct} infoProduct={infoProduct} forLabel="Mô tả sản phẩm" name="desProduct" type="textarea" valueInput="valueInput" placeholder="Mô tả sản phẩm" />
             <Form>
                 {/* <FormGroup>
                     <Label for="exampleEmail"> Tên sản phẩm</Label>
@@ -148,6 +127,7 @@ function ProductDetails(props) {
                 </FormGroup> */}
 
                 <Button onClick={() => addProducts()}>Thêm sản phẩm</Button>
+
                 <Button onClick={() => addProducts1()}>Thêm sản phẩm1</Button>
             </Form>
         </div>
