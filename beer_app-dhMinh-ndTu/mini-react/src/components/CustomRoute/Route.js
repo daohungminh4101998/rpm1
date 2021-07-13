@@ -40,7 +40,7 @@ const routes = [
         components: <AddProduct />
     },
     {
-        path: '/processpro',
+        path: '/admin',
         exact: false,
         authLogin: true,
         components: <ProcessProduct />

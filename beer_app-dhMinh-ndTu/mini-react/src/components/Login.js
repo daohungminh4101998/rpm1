@@ -19,7 +19,7 @@ function Login() {
         if ((loginForm.userName === 'admin' && loginForm.password === 'admin')) {
             // authLogin.push()
             localStorage.setItem('authLogin', JSON.stringify({ 'user': loginForm.userName, 'role': 2 }));
-            history.push("/processpro");
+            history.push("/admin");
         }
         else if ((loginForm.userName === 'user' && loginForm.password === 'user')) {
             // authLogin.push()
