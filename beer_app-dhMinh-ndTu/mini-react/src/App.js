@@ -22,65 +22,46 @@ import PrivateRoute from './components/PrivateRoute';
 
 
 import routes from './components/CustomRoute/Route'
-
-// import { useQuery, useMutation, useQueryCache, QueryCache, ReactQueryCacheProvider } from 'react-query'
-import { QueryClient, QueryClientProvider } from 'react-query'
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link,
-  // Redirect,
-  // useHistory,
-  // useLocation
 } from "react-router-dom";
-import { useState } from 'react';
 import AuthAdminLogin from './components/AuthAdminLogin';
+
 function App() {
-  const queryClient = new QueryClient();
-  const [user, setUser] = useState("")
-  const [updateState, setUpdateState] = useState("")
-  const [flagRender, setFlagRender] = useState(false)
-
-  const handleUpdateState = (dataState) => {
-    setUser(dataState)
-    setUpdateState('change...')
-    setFlagRender(true)
-  }
-  const [nombres, setNombres] = useState("");
-  const handleClick = (data) => {
-    setNombres(data);
-  };
-
   return (
     <div className="App">
+
       {/* <QueryClientProvider client={queryClient} contextSharing={true}> */}
       <Router>
         <Switch>
           {routes.map((route, indexRoute) => {
-            if (route.privateRoute == true) {
+
+            if (route.privateRoute) {
               return (
-                <PrivateRoute exact={route.exact} path={route.path}>
+                <PrivateRoute key={indexRoute} exact={route.exact} path={route.path}>
                   {route.components}
                 </PrivateRoute>
               )
             }
-            else if (route.authLogin == true) {
+            else if (route.authLogin) {
               return (
-                <AuthAdminLogin exact={route.exact} path={route.path}>
+                <AuthAdminLogin key={indexRoute} exact={route.exact} path={route.path}>
                   {route.components}
                 </AuthAdminLogin>
               )
             }
             else {
               return (
-                <Route path={route.path} exact={route.exact}>
+                <Route key={indexRoute} path={route.path} exact={route.exact}>
                   {route.components}
                 </Route>
               )
             }
-          })}
+          }
+
+          )}
           {/*
             <Route
               path="/products/:slug"

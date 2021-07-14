@@ -3,38 +3,29 @@ import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import fakeimg from '../assets/img/fake.jpg';
 import * as BEERAPP from './../utils/index';
 import axios from 'axios'
-import Https from '../service/Https';
-
-
 function ProductDetails(props) {
     let location = useLocation();
-    // console.log(location)
     let listOrder = location.state.dataOrder;
-    console.log(location)
-
     let resultListOrder = listOrder.map((item, index) => {
         return {
             "description": item.category,
             "name": item.category,
             "priceType": "one time",
-            "state": "inProgress",//inProgress
             "price": {
                 "taxRate": 16.0,
                 "dutyFreeAmount": {
                     "unit": "VND",
-                    "state": "inProgress",//inProgress
                     "value": 1213333
                 },
                 "taxIncludedAmount": {
                     "unit": "VND",
-                    "state": "inProgress",//inProgress
                     "value": 1410000
                 }
             },
             "state": "inProgress",//inProgress
         }
     })
-    const [fakeApi, setFakeApi] = useState([])
+    // const [fakeApi, setFakeApi] = useState([])
     const [stateData, setStateData] = useState([])
     async function getBeerById() {
         try {
@@ -45,7 +36,7 @@ function ProductDetails(props) {
             });
             const slug = match.params.slug
             const resultDetails = response.data.filter((itemFind, index) => {
-                return itemFind.id == slug
+                return itemFind.id === slug
             })
             setStateData(resultDetails)
             // setFakeApi(response.data)
@@ -56,28 +47,29 @@ function ProductDetails(props) {
 
     }
     const [countBeer, setCountBeer] = useState(1)
-    const [priceTamp, setPriceTamp] = useState(25000)
+    // const [priceTamp, setPriceTamp] = useState(25000)
+    let priceTamp = 25000
     let match = useRouteMatch("/products/:slug");
     useEffect(() => {
         getBeerById()
         // const slug = match.params.slug
         // const resultDetails = fakeApi.filter((itemFind, index) => {
-        //     return itemFind.id == slug
+        //     return itemFind.id === slug
         // })
         // setStateData(resultDetails)
     }, [])
     const handleCount = (mark) => {
-        if (mark == '-') {
+        if (mark === '-') {
             setCountBeer(countBeer - 1)
-            if (countBeer == 1) {
+            if (countBeer === 1) {
                 setCountBeer(1)
             }
         }
-        else if (mark == '+') {
+        else if (mark === '+') {
             setCountBeer(countBeer + 1)
         }
     }
-    const totalPrice = countBeer * priceTamp;
+    // const totalPrice = countBeer * priceTamp;
     let history = useHistory();
     const orderBeer = (indexOrderB, quantity) => {
         const orderNow = Date.now();
@@ -176,7 +168,7 @@ function ProductDetails(props) {
             .then(function (response) {
                 // console.log(response);
                 // console.log(response)
-                if (response.status == 200) {
+                if (response.status === 200) {
                     // history.push('/CartProduct')
 
                     history.push({
@@ -204,13 +196,13 @@ function ProductDetails(props) {
             <div className="wrap-product-details-app">
                 {stateData.map((itemOrder, index) => {
                     // console.log(itemOrder)
-                    var quantity = itemOrder.productOrderItem[0] == undefined ? 1 : itemOrder.productOrderItem[0].quantity
+                    var quantity = itemOrder.productOrderItem[0] === undefined ? 1 : itemOrder.productOrderItem[0].quantity
                     // console.log(itemOrder)
                     return (
                         <div key={index} className="wrap-product-details">
                             <div className="main_product">
                                 <div className="img-product">
-                                    <img src={fakeimg} />
+                                    <img src={fakeimg} alt={itemOrder.category} />
                                 </div>
                                 {/* <div className="img-product">
                                 </div> */}
@@ -268,41 +260,6 @@ function ProductDetails(props) {
                         </div>
                     )
                 })}
-                {/* <div className="wrap-product-details">
-                <div className="img-product">
-                    <img src={fakeimg} />
-                </div>
-                <div className="img-product">
-                </div>
-                <h2 className="title-beer">
-                    Bia Heniken
-                </h2>
-                <div className="sell-outr">
-                    <span className="border-right mr-1">50 + đã bán</span>
-                    <span>4 thích</span>
-                </div>
-                <div className="price d-flex justify-content-between">
-                    <span className="price">25.000  <br />
-                        SIZE M
-                    </span>
-
-                    <div className="count-product d-flex">
-                        <button className="decrement-count">-</button>
-                        <h3 className="number-count">1</h3>
-                        <button className="increment-count" >+</button>
-
-                    </div>
-                </div>
-                <div className="payment border-top d-flex justify-content-between">
-                    <div className="payment-left">
-                        25.000d <br />
-                        SIZE M
-                    </div>
-                    <div className="payment-left">
-                        GIAO HANG
-                    </div>
-                </div>
-            </div> */}
             </div>
 
         </>

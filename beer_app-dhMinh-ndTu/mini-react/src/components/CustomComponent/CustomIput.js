@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
 
 const CustomIput = ({ ...rest }) => {

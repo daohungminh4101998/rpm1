@@ -3,13 +3,12 @@ import { Table } from 'reactstrap';
 import { ButtonToggle } from "reactstrap";
 import axios from 'axios'
 import * as BEERAPP from './../utils/index';
-import { useHistory } from 'react-router-dom';
 function ProcessProduct(props) {
     const [fakeApi, setFakeApi] = useState([])
     const [show, setShow] = useState(false);
     const [idShow, setIdShow] = useState(null);
     const [updateState, setUpdateState] = useState("")
-    let history = useHistory();
+    // let history = useHistory();
     async function getBeerById() {
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}`, {
@@ -35,16 +34,12 @@ function ProcessProduct(props) {
 
 
     }
-    let location = {
-        pathname: `/CartProduct`,
-        query: { dev: '1' }
-    };
+
 
     const handleComPlete = (idOrder, itemArr) => {
         const sendData = {
             "id": idOrder,
             "href": null,
-            "nameProduct": "Bia Hà Nội tu client",
             "price": 100000000000,
             "cancellationDate": null,
             "cancellationReason": null,
@@ -120,20 +115,32 @@ function ProcessProduct(props) {
 
 
     }
-    const renderOrder = fakeApi.length > 0 ? fakeApi.map((item, index) => {
-        if (item.state === 'inProgress') {
-            if (item.orderTotalPrice != null) {
+
+    function convertDate(valueData) {
+        var date = new Date(valueData);
+        return date.getDate() + '-' + (date.getMonth() + 1 <= 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`) + '-' + date.getFullYear();//prints expected format.
+
+    }
+
+    const renderOrder = fakeApi.length > 0 ?
+        fakeApi
+            .filter((itemFilter) => {
+                return itemFilter.state === 'inProgress' && itemFilter.orderTotalPrice !== null
+            })
+            .map((item, index) => {
+
+
                 return (
-                    <tbody>
+                    <tbody key={index}>
                         <tr>
-                            <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show == true && idShow == item.id ? 'hide' : 'show'}</th>
+                            <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show === true && idShow === item.id ? 'hide' : 'show'}</th>
 
                             <th scope="row">{item.id}</th>
                             <td>{item.category}</td>
                             <td>{item.productOrderItem[0] !== undefined ? item.productOrderItem[0].quantity : 1}</td>
                             <td></td>
 
-                            <td>{item.orderDate}</td>
+                            <td>{convertDate(item.orderDate)}</td>
 
                             <td>{item.state}</td>
 
@@ -148,7 +155,7 @@ function ProcessProduct(props) {
                                         <th scope="row" onClick={handleShowItem}></th>
                                         <td></td>
                                         <td>{itemSub.description}</td>
-                                        <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : 1} </td>
+                                        <td>{item.productOrderItem[0] !== undefined ? item.productOrderItem[0].quantity : 1} </td>
                                         <td>1</td>
                                         <td>{item.orderDate}</td>
                                         <td>{item.state}</td>
@@ -160,13 +167,7 @@ function ProcessProduct(props) {
 
                     </tbody>
                 )
-            }
-
-        } else {
-            return false
-        }
-
-    }) : []
+            }) : []
 
     return (
         <Table bordered>

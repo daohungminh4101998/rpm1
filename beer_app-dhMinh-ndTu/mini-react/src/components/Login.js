@@ -10,28 +10,28 @@ function Login() {
         password: '',
     });
 
+    const authLogin = 'authLogin'
     const handleLoginUser = (event) => {
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value })
     }
     const handleLoginForm = () => {
-        // var authLogin = { 'user': 'admin', 'role': 2 };
-        var authLogin = []
         if ((loginForm.userName === 'admin' && loginForm.password === 'admin')) {
-            // authLogin.push()
-            localStorage.setItem('authLogin', JSON.stringify({ 'user': loginForm.userName, 'role': 2 }));
+
+            const authLogin = 'authLogin'
+            localStorage.setItem(authLogin, JSON.stringify({ 'user': loginForm.userName, 'role': 2 }));
             history.push("/processpro");
         }
         else if ((loginForm.userName === 'user' && loginForm.password === 'user')) {
-            // authLogin.push()
-            localStorage.setItem('authLogin', JSON.stringify({ 'user': loginForm.userName, 'role': 1 }));
+
+            localStorage.setItem(authLogin, JSON.stringify({ 'user': loginForm.userName, 'role': 1 }));
             history.push("/");
         }
 
         if (loginForm.userName === '' || loginForm.password === '') { //Logical OR (||) - JavaScript | MDN
-            //validate Styles
+
         }
         else {
-            //validate Styles
+
         }
     }
     return (
