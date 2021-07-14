@@ -42,12 +42,12 @@ export const sendData = (nameProduct, desProduct, imgUpload) => {
         "quote": [
             {
                 "validFor": null,
-                "state": null,
+                "state": 'acknowledged',
                 "note": null,
                 "lastStateChangedDate": null,
-                "id": "00000007",
+                "id": null,
                 "href": null,
-                "name": "BIA ORDER-DEMO",
+                "name": "BIA KEN 007",
                 "@baseType": null,
                 "@schemaLocation": null,
                 "@type": "QuoteRef",

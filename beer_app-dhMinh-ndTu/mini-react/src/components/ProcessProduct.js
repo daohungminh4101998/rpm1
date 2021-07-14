@@ -3,10 +3,14 @@ import { Table } from 'reactstrap';
 import { ButtonToggle } from "reactstrap";
 import axios from 'axios'
 import * as BEERAPP from './../utils/index';
+import { ExportCSV } from './ExportCSV';
 function ProcessProduct(props) {
     const [fakeApi, setFakeApi] = useState([])
     const [show, setShow] = useState(false);
     const [idShow, setIdShow] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [saveOrderExcel, setSaveorderExcel] = useState([])
+    const toggle = () => setIsOpen(!isOpen);
     const [updateState, setUpdateState] = useState("")
     // let history = useHistory();
     async function getBeerById() {
@@ -34,7 +38,6 @@ function ProcessProduct(props) {
 
 
     }
-
 
     const handleComPlete = (idOrder, itemArr) => {
         const sendData = {
@@ -99,6 +102,7 @@ function ProcessProduct(props) {
                 if (response.status === 200) {
                     alert('ORDER THANH CONG')
                     setUpdateState(response.data.id)
+                    // setSaveorderExcel(response.data)
 
                 } else {
                     alert('ORDER THAT BAI')
@@ -112,8 +116,6 @@ function ProcessProduct(props) {
     const handleShowItem = (itemId) => {
         setIdShow(itemId)
         setShow(!show)
-
-
     }
 
     function convertDate(valueData) {
@@ -121,20 +123,20 @@ function ProcessProduct(props) {
         return date.getDate() + '-' + (date.getMonth() + 1 <= 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`) + '-' + date.getFullYear();//prints expected format.
 
     }
+    let arrArrtamp = []
 
     const renderOrder = fakeApi.length > 0 ?
         fakeApi
             .filter((itemFilter) => {
                 return itemFilter.state === 'inProgress' && itemFilter.orderTotalPrice !== null
             })
+
             .map((item, index) => {
-
-
+                arrArrtamp.push(item)
                 return (
                     <tbody key={index}>
                         <tr>
                             <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show === true && idShow === item.id ? 'hide' : 'show'}</th>
-
                             <th scope="row">{item.id}</th>
                             <td>{item.category}</td>
                             <td>{item.productOrderItem[0] !== undefined ? item.productOrderItem[0].quantity : 1}</td>
@@ -168,7 +170,6 @@ function ProcessProduct(props) {
                     </tbody>
                 )
             }) : []
-
     return (
         <Table bordered>
             <thead>
@@ -192,7 +193,7 @@ function ProcessProduct(props) {
                 </tr>
             </thead>
             {renderOrder}
-
+            <ExportCSV csvData={arrArrtamp} fileName="demoexcel" />
         </Table>
     );
 }

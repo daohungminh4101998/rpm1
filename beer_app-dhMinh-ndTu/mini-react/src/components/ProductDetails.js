@@ -6,6 +6,7 @@ import axios from 'axios'
 function ProductDetails(props) {
     let location = useLocation();
     let listOrder = location.state.dataOrder;
+    console.log(listOrder)
     let resultListOrder = listOrder.map((item, index) => {
         return {
             "description": item.category,
