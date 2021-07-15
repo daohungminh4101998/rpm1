@@ -68,7 +68,7 @@ function CartProduct(props) {
                     <td>hom nay</td>
                     <td>{BEERAPP.digitalNumber(item.price.taxIncludedAmount.value)}</td>
                 </tr>
-            </tbody >
+            </tbody>
         )
     }) : []
     const renderOrderProgress = fakeApi.length > 0 ? fakeApi.map((item, index) => {

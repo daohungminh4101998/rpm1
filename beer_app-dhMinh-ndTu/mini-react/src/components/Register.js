@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "../assets/css/Register.css"
 import { useHistory } from "react-router-dom";
 
 function Register() {
@@ -31,7 +31,7 @@ function Register() {
                     <h2>Register Beer Bar App</h2>
                 </div>
                 <div className="switch_button">
-                    <div className="btn_login"><button>Đăng nhập</button></div>
+                    <div className="btn_login"><button className="loginn">Đăng nhập</button></div>
                     <div className="btn_or"> <span>Hoặc</span></div>
                 </div>
                 <div className="auth-form__form">

@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import fakeimg from '../assets/img/fake.jpg';
 import Https from '../service/Https';
-
+import Basepage from './Basepage';
 
 import {
     NavLink,
@@ -125,14 +125,15 @@ function Products(props) {
 
                         <Button color="success" onClick={() => { handleBuyNow(itemBeer.id, itemBeer) }}>Buy now</Button>
                     </CardBody>
-                </Card >
+                </Card>
             )
         }
     })
     return (
-        <div>
-            {/* Viết danh sách sản phẩm ở đây nhé, giống cách viết trang register */}
 
+        <div>
+                {/* Viết danh sách sản phẩm ở đây nhé, giống cách viết trang register */}
+            <Basepage></Basepage>
             <div className="d-flex justify-content-between">
                 <h1 style={styleLineHeight}>Danh sach loai bia</h1>
                 <h2 style={styleLineHeight}>Gio hang </h2>

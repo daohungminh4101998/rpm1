@@ -116,7 +116,7 @@ function App() {
       </Router>
       {/* </QueryClientProvider> */}
 
-    </div >
+    </div>
   );
 }
 
