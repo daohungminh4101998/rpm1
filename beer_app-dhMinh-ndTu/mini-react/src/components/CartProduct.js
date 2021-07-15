@@ -6,15 +6,9 @@ import { useLocation } from 'react-router-dom';
 import fake from '../assets/img/fake.jpg'
 function CartProduct(props) {
     let location = useLocation();
-    // let history = useHistory();
-    // let { slug } = useParams();
-    // const user = useContext(UserContext);
-    // const [stateApi, setStateApi] = useState("");
-    // const [reRender, setReRender] = useState(props.updateState);
-    let locationId = location.state != undefined ? location.state.listOrder.id : []
+    let locationId = location.state !== undefined ? location.state.listOrder.id : []
     const [fakeApi, setFakeApi] = useState([])
     async function getBeerById() {
-
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}/${locationId}`, {
                 headers: {
@@ -34,35 +28,20 @@ function CartProduct(props) {
     }
     // let cls;
     useEffect(() => {
-        getBeerById() //state:inproGress
+        getBeerById()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [])
     let totalCount = 0;
-    const renderOrder = fakeApi.orderTotalPrice != undefined ? fakeApi.orderTotalPrice.map((item, index) => {
+    const renderOrder = fakeApi.orderTotalPrice !== undefined ? fakeApi.orderTotalPrice.map((item, index) => {
         totalCount += item.price.taxIncludedAmount.value
-
         return (
-            // <tbody>
-            //     <tr>
-            //         <th scope="row">{item.id}</th>
-            //         <td>{item.category}</td>
-            //         <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : ""}</td>
-            //         <td></td>
-
-            //         <td>{item.orderDate}</td>
-
-            //         <td>{item.state}</td>
-
-            //         <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => handleComPlete(item.id)} color="success">Duyet</ButtonToggle>{' '}</td>
-
-            //         <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => hendleReject(item.id)} color="danger">Tu choi</ButtonToggle>{' '}</td>
-            //     </tr>
-            // </tbody>
-
             <tbody className="text-center" key={index} style={styleTable} >
                 <tr>
                     <td>{index}</td>
                     <td>{item.name}</td>
-                    <td><img src={fake} width="50px" height="50px" /></td>
+                    <td><img src={fake} width="50px" height="50px" alt={item.name} /></td>
                     <td>1</td>
                     <td>{fakeApi.state}</td>
                     <td>hom nay</td>
@@ -71,43 +50,26 @@ function CartProduct(props) {
             </tbody>
         )
     }) : []
-    const renderOrderProgress = fakeApi.length > 0 ? fakeApi.map((item, index) => {
-        if (item.state == 'inProgress') {
-            return (
-                // <tbody>
-                //     <tr>
-                //         <th scope="row">{item.id}</th>
-                //         <td>{item.category}</td>
-                //         <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : ""}</td>
-                //         <td></td>
+    // const renderOrderProgress = fakeApi.length > 0 ? fakeApi.map((item, index) => {
+    //     if (item.state == 'inProgress') {
+    //         return (
+    //             <tbody>
+    //                 <tr>
+    //                     <td>{index}</td>
+    //                     <td>{item.category}</td>
+    //                     <td>1</td>
+    //                     <td>1000</td>
+    //                     <td>hom nay</td>
+    //                     <td>{item.state}</td>
 
-                //         <td>{item.orderDate}</td>
+    //                 </tr>
+    //             </tbody>
+    //         )
+    //     } else {
+    //         return false
+    //     }
 
-                //         <td>{item.state}</td>
-
-                //         <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => handleComPlete(item.id)} color="success">Duyet</ButtonToggle>{' '}</td>
-
-                //         <td style={{ textAlign: 'center' }}>        <ButtonToggle onClick={() => hendleReject(item.id)} color="danger">Tu choi</ButtonToggle>{' '}</td>
-                //     </tr>
-                // </tbody>
-
-                <tbody>
-                    <tr>
-                        <td>{index}</td>
-                        <td>{item.category}</td>
-                        <td>1</td>
-                        <td>1000</td>
-                        <td>hom nay</td>
-                        <td>{item.state}</td>
-
-                    </tr>
-                </tbody>
-            )
-        } else {
-            return false
-        }
-
-    }) : []
+    // }) : []
 
     return (
         <>
@@ -138,7 +100,7 @@ function CartProduct(props) {
                 </tr>
             </Table>
             <Table>
-                <thead>
+                {/* <thead>
                     <tr>
                         <th colSpan={3}>danh sach dang order</th>
                     </tr>
@@ -153,7 +115,7 @@ function CartProduct(props) {
                         <th>ngay order</th>
                         <th>trang thai</th>
                     </tr>
-                </thead>
+                </thead> */}
                 {/* {renderOrderProgress} */}
             </Table>
 

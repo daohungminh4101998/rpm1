@@ -1,0 +1,139 @@
+"note": [
+      {
+        "@baseType": "string",
+        "@schemaLocation": null,
+        "@type": "string",
+        "author": "string",
+        "date": "2021-07-06T12:31:40.814Z",
+        "id": "string",
+        "text": "string"
+      }
+    ],
+
+
+
+
+//productOrderItem productOrderItem
+
+
+
+{
+	"id": "Tiger-123",
+	"quantity": 3,
+	"action": "noChange",
+	"payment": null,
+	"productOffering": null,
+	"product": {
+		"id": "Tiger-123",
+		"name": "vvv 214",
+		"place": null,
+		"relatedParty": null
+	},
+	"itemPrice": [
+		{
+			"name": null,
+			"priceType": "one time",
+			"description": "beer",
+			"priceAlteration": [],
+			"price": {
+				"taxRate": 19,
+				"percentage": 0,
+				"dutyFreeAmount": {
+					"value": 2500000,
+					"unit": "VND"
+				},
+				"taxIncludedAmount": {
+					"value": 2900000,
+					"unit": "VBD"
+				}
+			}
+		}
+	]
+}
+
+
+
+orderTotalPrice
+
+
+"orderTotalPrice": [
+    {
+      "description": "Total amount 1",
+      "name": "Total 1",
+      "priceType": "one time",
+      "price": {
+        "taxRate": 16.0,
+        "dutyFreeAmount": {
+          "unit": "VND",
+          "value": 1213333
+        },
+        "taxIncludedAmount": {
+          "unit": "VND",
+          "value": 1410000
+        }
+      }
+    },
+    {
+      "description": "Total amount 2",
+      "name": "Total 2",
+      "priceType": "two time",
+      "recurringChargePeriod": "month",
+      "price": {
+        "taxRate": 16.0,
+        "dutyFreeAmount": {
+          "unit": "USD",
+          "value": 3.85
+        },
+        "taxIncludedAmount": {
+          "unit": "USD",
+          "value": 4.466
+        }
+      }
+    }
+  ],
+
+
+
+số lượng chú kiểm tra List item
+
+
+productOrderItem
+
+item
+
+
+{
+	"id": "Tiger-123",
+	"quantity": 3,
+	"action": "noChange",
+	"payment": null,
+	"productOffering": null,
+	"product": {
+		"id": "Tiger-123",
+		"name": "vvv 214",
+		"place": null,
+		"relatedParty": null
+	},
+	"itemPrice": [
+		{
+			"name": null,
+			"priceType": "one time",
+			"description": "beer",
+			"priceAlteration": [],
+			"price": {
+				"taxRate": 19,
+				"percentage": 0,
+				"dutyFreeAmount": {
+					"value": 2500000,
+					"unit": "VND"
+				},
+				"taxIncludedAmount": {
+					"value": 2900000,
+					"unit": "VBD"
+				}
+			}
+		}
+	]
+}
+
+

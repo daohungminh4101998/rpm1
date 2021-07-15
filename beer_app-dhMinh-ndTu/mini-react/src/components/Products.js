@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     Button, Card, CardImg, CardText, CardBody,
     CardTitle,
-    CardSubtitle,
 } from 'reactstrap';
 import fakeimg from '../assets/img/fake.jpg';
 import Https from '../service/Https';
@@ -46,18 +45,11 @@ function Products(props) {
     const [isLoading, setIsloading] = useState(true)
     const [arrItemOrder, setArrItemOrder] = useState([])
     let history = useHistory()
-    //export const BASE_URL = "http://codetrau.com:8082/order/beerOrders"
-
-    const addProduct = () => {
-
-    }
     async function getBeerById() {
         const response = await Https.get();
         setIsloading(false)
         setFakeApi(response.data)
     }
-    const { match } = props;
-
     useEffect(() => {
         getBeerById()
     }, [])
@@ -79,9 +71,6 @@ function Products(props) {
 
     const handleOrderBeer = async (indexBeer, itemBeer) => {
         dataArr.push(itemBeer)
-        // var result = await new Promise((res) => {
-        //     res(dataArr)
-        // })
         setArrItemOrder([...arrItemOrder, itemBeer])
 
     }
@@ -104,12 +93,14 @@ function Products(props) {
     const styleColor = {
         color: '#333'
     }
-    //console.log(arrItemOrder)
-    const renderData = fakeApi.map((itemBeer, index) => {
-        if (itemBeer.state == "acknowledged") {
+    const renderData = fakeApi
+        .filter(itemState => {
+            return itemState.state === "acknowledged"
+        })
+        .map((itemBeer, index) => {
             return (
                 <Card key={index} className="mb-3">
-                    <CardImg top width="318px" height="180px" src={fakeimg} alt="Card image cap" />
+                    <CardImg top width="318px" height="180px" src={itemBeer.href !== null ? itemBeer.href : fakeimg} alt="Card image cap" />
                     <CardBody>
                         <NavLink arrItemOrder={arrItemOrder} to={{
                             // `/products/${itemBeer.id}`
@@ -127,8 +118,8 @@ function Products(props) {
                     </CardBody>
                 </Card>
             )
-        }
-    })
+        });
+
     return (
 
         <div>
@@ -139,10 +130,10 @@ function Products(props) {
                 <h2 style={styleLineHeight}>Gio hang </h2>
             </div>
             <div className="d-flex flex-wrap justify-content-around">
-                {isLoading == true ?
+                {isLoading ?
                     <>
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="sr-only">Loading...</span>
                         </div>
                     </> : renderData}
             </div>

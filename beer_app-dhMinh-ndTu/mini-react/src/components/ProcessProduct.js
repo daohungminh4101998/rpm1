@@ -3,13 +3,13 @@ import { Table } from 'reactstrap';
 import { ButtonToggle } from "reactstrap";
 import axios from 'axios'
 import * as BEERAPP from './../utils/index';
-import { useHistory } from 'react-router-dom';
+import { ExportCSV } from './ExportCSV';
 function ProcessProduct(props) {
     const [fakeApi, setFakeApi] = useState([])
     const [show, setShow] = useState(false);
     const [idShow, setIdShow] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
     const [updateState, setUpdateState] = useState("")
-    let history = useHistory();
     async function getBeerById() {
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}`, {
@@ -18,6 +18,7 @@ function ProcessProduct(props) {
                 }
             });
             setFakeApi(response.data)
+
 
         } catch (error) {
             console.error(error);
@@ -35,16 +36,11 @@ function ProcessProduct(props) {
 
 
     }
-    let location = {
-        pathname: `/CartProduct`,
-        query: { dev: '1' }
-    };
 
     const handleComPlete = (idOrder, itemArr) => {
         const sendData = {
             "id": idOrder,
             "href": null,
-            "nameProduct": "Bia Hà Nội tu client",
             "price": 100000000000,
             "cancellationDate": null,
             "cancellationReason": null,
@@ -104,6 +100,7 @@ function ProcessProduct(props) {
                 if (response.status === 200) {
                     alert('ORDER THANH CONG')
                     setUpdateState(response.data.id)
+                    // setSaveorderExcel(response.data)
 
                 } else {
                     alert('ORDER THAT BAI')
@@ -115,25 +112,41 @@ function ProcessProduct(props) {
 
     }
     const handleShowItem = (itemId) => {
+        setIsOpen(!isOpen)
         setIdShow(itemId)
         setShow(!show)
-
-
     }
-    const renderOrder = fakeApi.length > 0 ? fakeApi.map((item, index) => {
-        if (item.state === 'inProgress') {
-            if (item.orderTotalPrice != null) {
-                return (
-                    <tbody>
-                        <tr>
-                            <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show == true && idShow == item.id ? 'hide' : 'show'}</th>
 
+    function convertDate(valueData) {
+        var date = new Date(valueData);
+        return date.getDate() + '-' + (date.getMonth() + 1 <= 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`) + '-' + date.getFullYear();//prints expected format.
+    }
+    let arrArrtamp = []
+
+    const exportCompleted = fakeApi.filter((item) => {
+        return item.state === "completed"
+    })
+    const exportReject = fakeApi.filter((item) => {
+        return item.state === "deleted"
+    })
+    const renderOrder = fakeApi.length > 0 ?
+        fakeApi
+            .filter((itemFilter) => {
+                return itemFilter.state === 'inProgress' && itemFilter.orderTotalPrice !== null
+            })
+
+            .map((item, index) => {
+                arrArrtamp.push(item)
+                return (
+                    <tbody key={index}>
+                        <tr >
+                            <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show === true && idShow === item.id ? 'hide' : 'show'}</th>
                             <th scope="row">{item.id}</th>
                             <td>{item.category}</td>
                             <td>{item.productOrderItem[0] !== undefined ? item.productOrderItem[0].quantity : 1}</td>
                             <td></td>
 
-                            <td>{item.orderDate}</td>
+                            <td>{convertDate(item.orderDate)}</td>
 
                             <td>{item.state}</td>
 
@@ -143,56 +156,60 @@ function ProcessProduct(props) {
                         </tr>
                         {
                             show === true && idShow === item.id && item.orderTotalPrice != null ? item.orderTotalPrice.map((itemSub, index) => {
+
+
                                 return (
-                                    <tr>
+
+                                    <tr key={index} >
                                         <th scope="row" onClick={handleShowItem}></th>
                                         <td></td>
                                         <td>{itemSub.description}</td>
-                                        <td>{item.productOrderItem[0] != undefined ? item.productOrderItem[0].quantity : 1} </td>
+                                        <td>{item.productOrderItem[0] !== undefined ? item.productOrderItem[0].quantity : 1} </td>
                                         <td>1</td>
                                         <td>{item.orderDate}</td>
                                         <td>{item.state}</td>
                                     </tr>
+
+
                                 )
+
                             })
                                 : null
                         }
 
                     </tbody>
                 )
-            }
-
-        } else {
-            return false
-        }
-
-    }) : []
-
+            }) : []
     return (
-        <Table bordered>
-            <thead>
-                <tr>
-                    <th colSpan={3}>danh sach order</th>
+        <>
+            <Table bordered>
+                <thead>
+                    <tr>
+                        <th colSpan={3}>danh sach order</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th>show</th>
 
-                </tr>
-            </thead>
-            <thead>
-                <tr>
-                    <th>show</th>
+                        <th>ID ORDER</th>
+                        <th>ten sp</th>
+                        <th>so luong</th>
+                        <th>gia</th>
 
-                    <th>ID ORDER</th>
-                    <th>ten sp</th>
-                    <th>so luong</th>
-                    <th>gia</th>
+                        <th>ngay order</th>
+                        <th>trang thai</th>
+                        <th colSpan={2} style={{ textAlign: 'center' }}>duyet</th>
+                    </tr>
+                </thead>
+                {renderOrder}
 
-                    <th>ngay order</th>
-                    <th>trang thai</th>
-                    <th colSpan={2} style={{ textAlign: 'center' }}>duyet</th>
-                </tr>
-            </thead>
-            {renderOrder}
+                <ExportCSV csvData={exportCompleted} fileName="demoexcel" />
 
-        </Table>
+            </Table>
+
+        </>
+
     );
 }
 

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import * as BEERAPP from '../utils/index';
+// import * as BEERAPP from '../utils/index';
 // Add a request interceptor
 axios.interceptors.request.use(
     function (config) {
-        config.baseURL = `${BEERAPP.BASE_URL}`;
+        config.baseURL = `${process.env.REACT_APP_API_URL}`;
         return config;
     },
     function (error) {
@@ -11,10 +11,13 @@ axios.interceptors.request.use(
     }
 );
 
-export default {
+
+const exportedObject = {
     get: axios.get,
     post: axios.post,
     put: axios.put,
     delete: axios.delete,
     patch: axios.patch
 };
+
+export default exportedObject;
