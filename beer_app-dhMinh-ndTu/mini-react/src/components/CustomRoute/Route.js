@@ -55,7 +55,8 @@ const routes = [
         path: '/',
         exact: true,
         privateRoute: true,
-        components: <Products />
+        components: <Products />,
+
     },
 ]
 

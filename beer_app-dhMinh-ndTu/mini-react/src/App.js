@@ -29,18 +29,27 @@ import {
 } from "react-router-dom";
 import AuthAdminLogin from './components/AuthAdminLogin';
 
+import Header from './components/Header';
+
+import Footer from './components/Footer';
+import { useState } from 'react';
+
+
 function App() {
+  const [cartItem, setCartItem] = useState([]);
   return (
     <div className="App">
 
+
       {/* <QueryClientProvider client={queryClient} contextSharing={true}> */}
       <Router>
+        <Header cartItem={cartItem} />
         <Switch>
           {routes.map((route, indexRoute) => {
 
             if (route.privateRoute) {
               return (
-                <PrivateRoute key={indexRoute} exact={route.exact} path={route.path}>
+                <PrivateRoute setCartItem={setCartItem} key={indexRoute} exact={route.exact} path={route.path}>
                   {route.components}
                 </PrivateRoute>
               )
@@ -57,11 +66,13 @@ function App() {
                 <Route key={indexRoute} path={route.path} exact={route.exact}>
                   {route.components}
                 </Route>
+
               )
             }
           }
 
           )}
+
           {/*
             <Route
               path="/products/:slug"
@@ -94,6 +105,8 @@ function App() {
               <PageErr />
             </Route> */}
         </Switch>
+        <Footer />
+
       </Router>
       {/* </QueryClientProvider> */}
 

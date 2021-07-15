@@ -1,9 +1,8 @@
-
 /* Product details */
 .card {
   width: 24%;
 }
-h1{
+h1 {
   text-align: center;
 }
 .infor_order {
@@ -145,3 +144,17 @@ h1{
   padding: 0 !important;
 }
 /* end product detail */
+textarea#exampleText {
+  height: 100px;
+}
+.btn-success {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.btn-danger {
+  color: #fff !important;
+  background-color: red !important;
+  border-color: red !important;
+}

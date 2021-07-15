@@ -9,7 +9,9 @@ export const convertDate = (valueData) => {
     var date = new Date(valueData);
     return date.getDate() + '-' + (date.getMonth() + 1 <= 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`) + '-' + date.getFullYear();//prints expected format.
 }
-
+export const randomKm = () => {
+    return Math.floor(Math.random() * 50);
+}
 export const sendData = (nameProduct, desProduct, imgUpload) => {
     return {
         "id": null,
