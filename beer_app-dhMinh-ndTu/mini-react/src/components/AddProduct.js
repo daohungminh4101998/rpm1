@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 // import { useRouteMatch } from "react-router-dom";
-import { Button, Form } from 'reactstrap';
+import { Alert, Button, Form } from 'reactstrap';
 // import fakeimg from '../assets/img/fake.jpg';
 import * as BEERAPP from './../utils/index';
 import CustomIput from './CustomComponent/CustomIput'
@@ -17,6 +17,7 @@ function ProductDetails(props) {
             imgUpload: ''
         }
     )
+    const [flagState, setFlagState] = useState(false)
     // const [imgUpload, setImgUpload] = useState('')
     // const sendData = {
     //     "id": null,
@@ -78,8 +79,8 @@ function ProductDetails(props) {
     }
     async function addProductList() {
 
-        const tamp = await Https.post(`${process.env.REACT_APP_API_URL}`, BEERAPP.sendData(infoProduct.nameProduct, infoProduct.desProduct));
-        console.log(tamp)
+        await Https.post(`${process.env.REACT_APP_API_URL}`, BEERAPP.sendData(infoProduct.nameProduct, infoProduct.desProduct));
+        setFlagState(true)
         setInfoProduct({
             nameProduct: '',
             desProduct: '',
@@ -95,6 +96,9 @@ function ProductDetails(props) {
     }
     return (
         <div className="add-product-app">
+            {flagState ? <Alert color="success">
+                them thanh cong
+            </Alert> : ''}
             <h1>them san pham</h1>
             <CustomIput setInfoProduct={setInfoProduct} infoProduct={infoProduct} forLabel="Tên sản phẩm" name="nameProduct" type="text" valueInput="valueInput" placeholder="Nhập tên sản phẩm" />
             <CustomIput setInfoProduct={setInfoProduct} infoProduct={infoProduct} forLabel="Số lượng sản phẩm" name="priceProduct" type="number" valueInput="valueInput" placeholder="Nhập sl sản phẩm" />

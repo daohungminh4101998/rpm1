@@ -9,10 +9,7 @@ function ProcessProduct(props) {
     const [show, setShow] = useState(false);
     const [idShow, setIdShow] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [saveOrderExcel, setSaveorderExcel] = useState([])
-    const toggle = () => setIsOpen(!isOpen);
     const [updateState, setUpdateState] = useState("")
-    // let history = useHistory();
     async function getBeerById() {
         try {
             const response = await axios.get(`${BEERAPP.BASE_URL}`, {
@@ -21,6 +18,7 @@ function ProcessProduct(props) {
                 }
             });
             setFakeApi(response.data)
+
 
         } catch (error) {
             console.error(error);
@@ -114,6 +112,7 @@ function ProcessProduct(props) {
 
     }
     const handleShowItem = (itemId) => {
+        setIsOpen(!isOpen)
         setIdShow(itemId)
         setShow(!show)
     }
@@ -121,10 +120,15 @@ function ProcessProduct(props) {
     function convertDate(valueData) {
         var date = new Date(valueData);
         return date.getDate() + '-' + (date.getMonth() + 1 <= 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`) + '-' + date.getFullYear();//prints expected format.
-
     }
     let arrArrtamp = []
 
+    const exportCompleted = fakeApi.filter((item) => {
+        return item.state === "completed"
+    })
+    const exportReject = fakeApi.filter((item) => {
+        return item.state === "deleted"
+    })
     const renderOrder = fakeApi.length > 0 ?
         fakeApi
             .filter((itemFilter) => {
@@ -135,7 +139,7 @@ function ProcessProduct(props) {
                 arrArrtamp.push(item)
                 return (
                     <tbody key={index}>
-                        <tr>
+                        <tr >
                             <th scope="row" onClick={() => { handleShowItem(item.id) }}>{show === true && idShow === item.id ? 'hide' : 'show'}</th>
                             <th scope="row">{item.id}</th>
                             <td>{item.category}</td>
@@ -152,8 +156,11 @@ function ProcessProduct(props) {
                         </tr>
                         {
                             show === true && idShow === item.id && item.orderTotalPrice != null ? item.orderTotalPrice.map((itemSub, index) => {
+
+
                                 return (
-                                    <tr>
+
+                                    <tr key={index} >
                                         <th scope="row" onClick={handleShowItem}></th>
                                         <td></td>
                                         <td>{itemSub.description}</td>
@@ -162,7 +169,10 @@ function ProcessProduct(props) {
                                         <td>{item.orderDate}</td>
                                         <td>{item.state}</td>
                                     </tr>
+
+
                                 )
+
                             })
                                 : null
                         }
@@ -171,30 +181,35 @@ function ProcessProduct(props) {
                 )
             }) : []
     return (
-        <Table bordered>
-            <thead>
-                <tr>
-                    <th colSpan={3}>danh sach order</th>
+        <>
+            <Table bordered>
+                <thead>
+                    <tr>
+                        <th colSpan={3}>danh sach order</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th>show</th>
 
-                </tr>
-            </thead>
-            <thead>
-                <tr>
-                    <th>show</th>
+                        <th>ID ORDER</th>
+                        <th>ten sp</th>
+                        <th>so luong</th>
+                        <th>gia</th>
 
-                    <th>ID ORDER</th>
-                    <th>ten sp</th>
-                    <th>so luong</th>
-                    <th>gia</th>
+                        <th>ngay order</th>
+                        <th>trang thai</th>
+                        <th colSpan={2} style={{ textAlign: 'center' }}>duyet</th>
+                    </tr>
+                </thead>
+                {renderOrder}
 
-                    <th>ngay order</th>
-                    <th>trang thai</th>
-                    <th colSpan={2} style={{ textAlign: 'center' }}>duyet</th>
-                </tr>
-            </thead>
-            {renderOrder}
-            <ExportCSV csvData={arrArrtamp} fileName="demoexcel" />
-        </Table>
+                <ExportCSV csvData={exportCompleted} fileName="demoexcel" />
+
+            </Table>
+
+        </>
+
     );
 }
 

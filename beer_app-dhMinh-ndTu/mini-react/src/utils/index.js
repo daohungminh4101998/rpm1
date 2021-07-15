@@ -5,6 +5,10 @@ export const VND = "VND";
 export const digitalNumber = (value) => {
     return Number.parseInt(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 };
+export const convertDate = (valueData) => {
+    var date = new Date(valueData);
+    return date.getDate() + '-' + (date.getMonth() + 1 <= 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`) + '-' + date.getFullYear();//prints expected format.
+}
 
 export const sendData = (nameProduct, desProduct, imgUpload) => {
     return {

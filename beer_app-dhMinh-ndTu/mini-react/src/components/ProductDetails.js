@@ -3,10 +3,10 @@ import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import fakeimg from '../assets/img/fake.jpg';
 import * as BEERAPP from './../utils/index';
 import axios from 'axios'
+import Review from './Review';
 function ProductDetails(props) {
     let location = useLocation();
     let listOrder = location.state.dataOrder;
-    console.log(listOrder)
     let resultListOrder = listOrder.map((item, index) => {
         return {
             "description": item.category,
@@ -40,7 +40,6 @@ function ProductDetails(props) {
                 return itemFind.id === slug
             })
             setStateData(resultDetails)
-            // setFakeApi(response.data)
         } catch (error) {
             console.error(error);
         }
@@ -48,16 +47,10 @@ function ProductDetails(props) {
 
     }
     const [countBeer, setCountBeer] = useState(1)
-    // const [priceTamp, setPriceTamp] = useState(25000)
     let priceTamp = 25000
     let match = useRouteMatch("/products/:slug");
     useEffect(() => {
         getBeerById()
-        // const slug = match.params.slug
-        // const resultDetails = fakeApi.filter((itemFind, index) => {
-        //     return itemFind.id === slug
-        // })
-        // setStateData(resultDetails)
     }, [])
     const handleCount = (mark) => {
         if (mark === '-') {
@@ -167,11 +160,7 @@ function ProductDetails(props) {
         }
         axios.post(`${BEERAPP.BASE_URL}`, sendData)
             .then(function (response) {
-                // console.log(response);
-                // console.log(response)
                 if (response.status === 200) {
-                    // history.push('/CartProduct')
-
                     history.push({
                         pathname: '/CartProduct',
                         state: { listOrder: sendData }
@@ -188,22 +177,17 @@ function ProductDetails(props) {
 
     }
     const authFakeLocal = localStorage.getItem('user');
-
-    // console.log(fakeApi)
     return (
         <>
-
             <h1>THÔNG TIN ĐƠN HÀNG {authFakeLocal}</h1>
             <div className="wrap-product-details-app">
                 {stateData.map((itemOrder, index) => {
-                    // console.log(itemOrder)
                     var quantity = itemOrder.productOrderItem[0] === undefined ? 1 : itemOrder.productOrderItem[0].quantity
-                    // console.log(itemOrder)
                     return (
                         <div key={index} className="wrap-product-details">
                             <div className="main_product">
                                 <div className="img-product">
-                                    <img src={fakeimg} alt={itemOrder.category} />
+                                    <img src={itemOrder.href !== null ? itemOrder.href : fakeimg} alt={itemOrder.category} />
                                 </div>
                                 {/* <div className="img-product">
                                 </div> */}
@@ -262,6 +246,7 @@ function ProductDetails(props) {
                     )
                 })}
             </div>
+            <Review stateData={stateData} />
 
         </>
 

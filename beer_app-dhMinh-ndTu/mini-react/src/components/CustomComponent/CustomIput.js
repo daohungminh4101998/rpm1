@@ -6,10 +6,11 @@ const CustomIput = ({ ...rest }) => {
     const handleSetInput = (e) => {
         setInfoProduct({ ...infoProduct, [e.target.name]: e.target.value })
     }
+    //Logical OR (||) - JavaScript | MDN
     return (
         <FormGroup>
             <Label for="exampleText">{forLabel}</Label>
-            <Input value={infoProduct[name]} onChange={handleSetInput} type={type} name={name} id="exampleText" placeholder={placeholder} />
+            <Input value={infoProduct[name] || ""} onChange={handleSetInput} type={type} name={name} id="exampleText" placeholder={placeholder} />
         </FormGroup>
     )
 }

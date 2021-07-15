@@ -271,5 +271,14 @@ h2 {
 .payment button:hover {
   transform: scale(0.9);
 }
+.card-inner {
+  margin-left: 4rem;
+}
+.container {
+  background-color: transparent !important;
+}
 
+.hiddenRow {
+  padding: 0 !important;
+}
 /* end product detail */
